@@ -2,39 +2,29 @@ import styles from '@/styles/ContactCode.module.css';
 
 const contactItems = [
   {
-    social: 'website',
-    link: 'nitinranganath.com',
-    href: 'https://nitinranganath.com',
-  },
-  {
     social: 'email',
-    link: 'nitinranganath@gmail.com',
-    href: 'mailto:nitinranganath@gmail.com',
+    link: 'anshvarshney1502@gmail.com',
+    href: 'mailto:anshvarshney1502@gmail.com',
   },
   {
     social: 'github',
-    link: 'itsnitinr',
-    href: 'https://github.com/itsnitinr',
+    link: 'anshvarshney1502',
+    href: 'https://github.com/anshvarshney1502',
   },
   {
     social: 'linkedin',
-    link: 'nitinranganath',
-    href: 'https://www.linkedin.com/in/nitinranganath/',
+    link: 'anshvarshneyy',
+    href: 'https://www.linkedin.com/in/anshvarshneyy/',
   },
   {
-    social: 'twitter',
-    link: 'iamnitinr',
-    href: 'https://www.twitter.com/iamnitinr',
+    social: 'instagram',
+    link: '_anshhit_',
+    href: 'https://www.instagram.com/_anshhit_/',
   },
   {
-    social: 'telegram',
-    link: 'iamnitinr',
-    href: 'https://t.me/iamnitinr',
-  },
-  {
-    social: 'peerlist',
-    link: 'nitinranganath',
-    href: 'https://peerlist.io/nitinranganath',
+    social: 'location',
+    link: 'Aligarh, Uttar Pradesh, India',
+    href: 'https://maps.google.com/?q=Aligarh,Uttar+Pradesh,India',
   },
 ];
 

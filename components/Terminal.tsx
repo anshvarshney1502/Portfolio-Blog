@@ -29,34 +29,36 @@ const commands: Record<string, () => string[]> = {
     '  echo      - Echo text (usage: echo <text>)',
   ],
   about: () => [
-    "Hi, I'm Nitin!",
-    'A passionate full-stack developer who loves building beautiful,',
-    'functional web applications. This portfolio is styled like VS Code',
-    'because I spend most of my time here anyway.',
+    "Hi, I'm Ansh!",
+    'BS in Data Science @ IIT Madras | Summer Intern @ IIT Ropar',
+    'Open Source Contributor @ ECSoC | Founder @ Technical Innovations Forum.',
+    'Building intelligent software with data, AI, and open source.',
   ],
   skills: () => [
-    'Technical Skills:',
-    '  Languages:  TypeScript, JavaScript, Python, Go, Rust',
-    '  Frontend:   React, Next.js, Vue, Tailwind CSS',
-    '  Backend:    Node.js, Express, FastAPI, GraphQL',
-    '  Database:   PostgreSQL, MongoDB, Redis',
-    '  DevOps:     Docker, Kubernetes, AWS, GitHub Actions',
-    '  Tools:      VS Code, Git, Figma, Linux',
+    'Technical & Leadership Skills:',
+    '  Languages:    Python, SQL, JavaScript, TypeScript',
+    '  Domain:       Data Science, Artificial Intelligence, Machine Learning',
+    '  Tools:        Git, GitHub, VS Code',
+    '  Leadership:   Community Management, Technical Curation',
+    '  Languages:    Hindi (Native/Bilingual), English (Professional Working)',
+    '  Certifications: 5-Day AI Agents: Intensive Vibe Coding Course With Google',
   ],
   projects: () => [
     'Featured Projects:',
-    '  1. vscode-portfolio - This portfolio you are viewing!',
-    '  2. Various open-source contributions',
-    '  3. Full-stack web applications',
+    '  1. CS9 - Crowdsourced FAQ Solution Portal (VLED, IIT Ropar)',
+    '  2. Memori - Agent-Native Memory Infrastructure',
+    '  3. Blogsite - Modern Technical Writing Platform',
+    '  4. PYBE - Scenario-driven Python Learning Prototype',
+    '  5. Portfolio - Visual Studio Code Developer Portfolio',
     '',
     'Visit the Projects tab for more details.',
   ],
   contact: () => [
     'Contact Information:',
-    '  Email:    hello@example.com',
-    '  GitHub:   github.com/itsnitinr',
-    '  Twitter:  @itsnitinr',
-    '  LinkedIn: linkedin.com/in/itsnitinr',
+    '  Email:     anshvarshney1502@gmail.com',
+    '  GitHub:    github.com/anshvarshney1502',
+    '  LinkedIn:  linkedin.com/in/anshvarshneyy',
+    '  Instagram: instagram.com/_anshhit_',
   ],
   themes: () => [
     'Available themes:',
@@ -65,7 +67,7 @@ const commands: Record<string, () => string[]> = {
     'Use "theme <name>" to change theme.',
   ],
   date: () => [new Date().toString()],
-  whoami: () => ['visitor@portfolio ~ exploring awesome projects'],
+  whoami: () => ['visitor@portfolio ~ exploring Ansh Varshney portfolio'],
   ls: () => ['about/', 'projects/', 'skills/', 'contact/', 'README.md'],
   pwd: () => ['/home/visitor/portfolio'],
 };
@@ -90,6 +92,7 @@ const processCommand = (input: string): TerminalLine[] => {
     if ((THEME_KEYS as string[]).includes(args[0])) {
       document.documentElement.setAttribute('data-theme', args[0]);
       localStorage.setItem('theme', args[0]);
+      localStorage.setItem('user_selected_theme', args[0]);
       lines.push({ type: 'output', content: `Theme changed to ${args[0]}` });
     } else {
       lines.push({ type: 'error', content: `Unknown theme: ${args[0]}. Type "themes" for available options.` });

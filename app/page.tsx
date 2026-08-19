@@ -19,16 +19,16 @@ export default function HomePage() {
           <div className={styles.intro}>
             <p className={styles.greeting}>Hello, I&apos;m</p>
             
-            <h1 className={styles.name}>Nitin Ranganath</h1>
+            <h1 className={styles.name}>Ansh Varshney</h1>
             
-            <p className={styles.role}>Full Stack Developer</p>
+            <p className={styles.role}>
+              Data Science @ IIT Madras | Summer Intern @ IIT Ropar | Open Source Contributor @ ECSoC
+            </p>
             
             <div className={styles.divider} />
             
             <p className={styles.description}>
-              I craft clean, performant web applications with modern technologies. 
-              Specialized in TypeScript, React, Node.js, and building products 
-              that users love.
+              Building intelligent software with data, AI, and open source. Currently pursuing a BS in Data Science at IIT Madras while gaining hands-on experience through a Summer Internship at IIT Ropar and contributing to open-source projects through Elite Coders Summer of Code (ECSoC). Interested in Artificial Intelligence, Machine Learning, and software engineering that creates meaningful real-world impact.
             </p>
           </div>
 
@@ -45,7 +45,7 @@ export default function HomePage() {
 
           <div className={styles.links}>
             <a 
-              href="https://github.com/itsnitinr" 
+              href="https://github.com/anshvarshney1502" 
               target="_blank" 
               rel="noopener noreferrer"
               className={styles.link}

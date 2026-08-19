@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -38,8 +40,17 @@ const explorerItems = [
   },
 ];
 
+const blogItems = [
+  {
+    name: "Coders'HighPython.tsx",
+    path: '/blogs/CodersHighPython',
+    icon: '/logos/react_icon.svg',
+  },
+];
+
 const Explorer = () => {
   const [portfolioOpen, setPortfolioOpen] = useState(true);
+  const [blogsOpen, setBlogsOpen] = useState(true);
 
   return (
     <div className={styles.explorer}>
@@ -64,6 +75,36 @@ const Explorer = () => {
           style={portfolioOpen ? { display: 'block' } : { display: 'none' }}
         >
           {explorerItems.map((item) => (
+            <Link href={item.path} key={item.name}>
+              <div className={styles.file}>
+                <Image src={item.icon} alt={item.name} height={18} width={18} />{' '}
+                <p>{item.name}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginTop: '0.5rem' }}>
+        <input
+          type="checkbox"
+          className={styles.checkbox}
+          id="blogs-checkbox"
+          checked={blogsOpen}
+          onChange={() => setBlogsOpen(!blogsOpen)}
+        />
+        <label htmlFor="blogs-checkbox" className={styles.heading}>
+          <VscChevronRight
+            className={styles.chevron}
+            style={blogsOpen ? { transform: 'rotate(90deg)' } : {}}
+          />
+          Blogs
+        </label>
+        <div
+          className={styles.files}
+          style={blogsOpen ? { display: 'block' } : { display: 'none' }}
+        >
+          {blogItems.map((item) => (
             <Link href={item.path} key={item.name}>
               <div className={styles.file}>
                 <Image src={item.icon} alt={item.name} height={18} width={18} />{' '}

@@ -19,6 +19,11 @@ const Tabsbar = () => {
         filename="github.md"
         path="/github"
       />
+      <Tab
+        icon="/logos/react_icon.svg"
+        filename="Coders'HighPython.tsx"
+        path="/blogs/CodersHighPython"
+      />
     </div>
   );
 };

@@ -7,6 +7,12 @@ export interface ThemeInfo {
 
 export const THEMES: ThemeInfo[] = [
   {
+    name: 'Night Owl',
+    theme: 'night-owl',
+    icon: '/themes/night-owl.png',
+    publisher: 'sarah.drasner',
+  },
+  {
     name: 'GitHub Dark',
     theme: 'github-dark',
     icon: '/themes/github-dark.png',
@@ -35,12 +41,6 @@ export const THEMES: ThemeInfo[] = [
     theme: 'nord',
     icon: '/themes/nord.png',
     publisher: 'arcticicestudio',
-  },
-  {
-    name: 'Night Owl',
-    theme: 'night-owl',
-    icon: '/themes/night-owl.png',
-    publisher: 'sarah.drasner',
   },
 ];
 

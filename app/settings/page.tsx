@@ -9,11 +9,11 @@ import ThemeInfo from '@/components/ThemeInfo';
 import styles from '@/styles/SettingsPage.module.css';
 
 const SettingsPage = () => {
-  const [activeTheme, setActiveTheme] = useState('github-dark');
+  const [activeTheme, setActiveTheme] = useState('night-owl');
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'github-dark';
+    const savedTheme = localStorage.getItem('user_selected_theme') || localStorage.getItem('theme') || 'night-owl';
     setActiveTheme(savedTheme);
     setIsLoaded(true);
   }, []);
@@ -21,6 +21,7 @@ const SettingsPage = () => {
   const handleThemeSelect = (theme: string) => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    localStorage.setItem('user_selected_theme', theme);
     setActiveTheme(theme);
   };
 

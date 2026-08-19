@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { VscSymbolColor, VscTerminal, VscFiles, VscGoToFile, VscGear, VscColorMode, VscHome, VscAccount, VscCode, VscBook, VscMail, VscGithubAlt } from 'react-icons/vsc';
+import { VscSymbolColor, VscTerminal, VscGoToFile, VscGear, VscColorMode, VscHome, VscAccount, VscCode, VscBook, VscMail, VscGithubAlt } from 'react-icons/vsc';
 import { MdNavigateNext } from 'react-icons/md';
 
 import { THEMES } from '@/lib/themes';
@@ -83,6 +83,14 @@ const CommandPalette = ({ isOpen, onClose, onToggleTerminal, isTerminalOpen }: C
         action: () => router.push('/github'),
       },
       {
+        id: 'go-coders-high-python',
+        label: "Go to Coders' High Python",
+        category: 'Navigation',
+        shortcut: 'G B',
+        icon: <VscBook size={16} />,
+        action: () => router.push('/blogs/CodersHighPython'),
+      },
+      {
         id: 'go-settings',
         label: 'Go to Settings',
         category: 'Navigation',
@@ -130,6 +138,7 @@ const CommandPalette = ({ isOpen, onClose, onToggleTerminal, isTerminalOpen }: C
           const theme = filteredThemes[index];
           document.documentElement.setAttribute('data-theme', theme.theme);
           localStorage.setItem('theme', theme.theme);
+          localStorage.setItem('user_selected_theme', theme.theme);
           onClose();
         }
       } else {
@@ -265,7 +274,7 @@ const CommandPalette = ({ isOpen, onClose, onToggleTerminal, isTerminalOpen }: C
             (() => {
               let lastCategory = '';
               let itemIndex = 0;
-              return filteredCommands.map((cmd, index) => {
+              return filteredCommands.map((cmd) => {
                 const showCategory = cmd.category !== lastCategory;
                 lastCategory = cmd.category;
                 const currentIndex = itemIndex++;

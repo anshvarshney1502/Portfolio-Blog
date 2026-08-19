@@ -7,28 +7,32 @@ import '@/styles/themes.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Nitin Ranganath | Portfolio',
-    template: 'Nitin Ranganath | %s',
+    default: 'Ansh Varshney | Portfolio',
+    template: 'Ansh Varshney | %s',
   },
   description:
-    "Nitin Ranganath is an avid full stack web developer building websites and applications you'd love to use",
+    'Building intelligent software with data, AI, and open source. BS in Data Science @ IIT Madras | Summer Intern @ IIT Ropar | Open Source Contributor @ ECSoC.',
   keywords: [
-    'nitin ranganath',
-    'nitin',
-    'ranganath',
-    'web developer portfolio',
-    'nitin web developer',
-    'nitin developer',
-    'mern stack',
-    'nitin ranganath portfolio',
+    'Ansh Varshney',
+    'anshvarshney1502',
+    'Ansh',
+    'Varshney',
+    'IIT Madras',
+    'IIT Ropar',
+    'Data Science',
+    'AI',
+    'Machine Learning',
+    'Open Source',
+    'ECSoC',
+    'Ansh Varshney Portfolio',
     'vscode-portfolio',
   ],
   openGraph: {
-    title: "Nitin Ranganath's Portfolio",
+    title: "Ansh Varshney's Portfolio",
     description:
-      "A full-stack developer building websites that you'd like to use.",
+      'Building intelligent software with data, AI, and open source.',
     images: ['https://imgur.com/4zi5KkQ.png'],
-    url: 'https://vscode-portfolio.vercel.app',
+    url: 'https://github.com/anshvarshney1502/vscode-portfolio',
   },
   twitter: {
     card: 'summary_large_image',
@@ -37,9 +41,16 @@ export const metadata: Metadata = {
 
 const themeScript = `
   (function() {
-    const theme = localStorage.getItem('theme');
-    if (theme) {
-      document.documentElement.setAttribute('data-theme', theme);
+    try {
+      var userTheme = localStorage.getItem('user_selected_theme');
+      if (userTheme) {
+        document.documentElement.setAttribute('data-theme', userTheme);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'night-owl');
+        localStorage.setItem('theme', 'night-owl');
+      }
+    } catch(e) {
+      document.documentElement.setAttribute('data-theme', 'night-owl');
     }
   })();
 `;
@@ -50,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="night-owl" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

@@ -1,7 +1,14 @@
 {
-  "name": "vscode-portfolio",
+  "name": "ansh-varshney-portfolio",
   "version": "2.0.0",
   "private": true,
+  "description": "Ansh Varshney's VSCode-themed developer portfolio",
+  "author": "Ansh Varshney <anshvarshney1502@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anshvarshney1502/vscode-portfolio.git"
+  },
+  "homepage": "https://github.com/anshvarshney1502/vscode-portfolio",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
