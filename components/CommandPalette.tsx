@@ -8,7 +8,7 @@ import {
 } from 'react-icons/vsc';
 
 import { useIDE } from '@/components/ide/IDEProvider';
-import { THEMES } from '@/lib/themes';
+import { ALL_THEMES as THEMES } from '@/lib/themes';
 import { IDE_FILES } from '@/lib/ide/files';
 import { fuzzyRank, highlightRuns } from '@/lib/ide/fuzzy';
 import { PROFILE } from '@/lib/ide/profile';

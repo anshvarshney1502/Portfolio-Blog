@@ -178,3 +178,33 @@
   --terminal-header-bg: #3b4252;
   --terminal-border: transparent;
 }
+
+/* Custom — VS Code Default Dark+ base. Accent overridden at runtime by user. */
+[data-theme='custom'] {
+  --main-bg: #1e1e1e;
+  --bg-text: #252526;
+  --text-color: #cccccc;
+  --accent-color: #569cd6;
+  --accent-color-rgb: 86, 156, 214;
+  --titlebar-bg: #3c3c3c;
+  --sidebar-bg: #252526;
+  --sidebar-hover-bg: #2a2d2e;
+  --explorer-bg: #252526;
+  --explorer-hover-bg: #2a2d2e;
+  --explorer-border: rgba(255, 255, 255, 0.08);
+  --tabs-bg: #1e1e1e;
+  --tab-bg: #2d2d2d;
+  --tab-active-bg: #1e1e1e;
+  --tab-border: #252526;
+  --bottombar-bg: #007acc;
+  --bottombar-border: transparent;
+  --button-bg: #0e639c;
+  --button-text: #ffffff;
+  --bottombar-hover-bg: #1177bb;
+  --scrollbar-track-bg: #1e1e1e;
+  --scrollbar-thumb-bg: #424242;
+  --article-bg: #252526;
+  --terminal-bg: #1e1e1e;
+  --terminal-header-bg: #252526;
+  --terminal-border: rgba(255, 255, 255, 0.1);
+}

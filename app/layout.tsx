@@ -77,6 +77,26 @@ const themeScript = `
     } catch(e) {
       document.documentElement.setAttribute('data-theme', 'night-owl');
     }
+    try {
+      var c = JSON.parse(localStorage.getItem('ide_customization_v1') || '{}');
+      var root = document.documentElement;
+      if (c.accentColor) {
+        root.style.setProperty('--accent-color', c.accentColor);
+        var hex = c.accentColor.replace('#','');
+        var r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
+        root.style.setProperty('--accent-color-rgb', r+', '+g+', '+b);
+        var lum=(0.299*r+0.587*g+0.114*b)/255;
+        root.style.setProperty('--button-text', lum>0.55?'#000000':'#ffffff');
+      }
+      if (c.textColor) root.style.setProperty('--text-color', c.textColor);
+      if (c.uiFont) {
+        var link=document.createElement('link');
+        link.rel='stylesheet';
+        link.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(c.uiFont)+':wght@300;400;500;600;700&display=swap';
+        document.head.appendChild(link);
+        root.style.setProperty('--font-ui','"'+c.uiFont+'", system-ui, -apple-system, sans-serif');
+      }
+    } catch(e2) {}
   })();
 `;
 
