@@ -1,7 +1,7 @@
 /* Home Page */
 
 @keyframes home-enter {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -14,6 +14,7 @@
   justify-content: center;
   padding: 60px 40px;
   position: relative;
+  contain: layout style;
 }
 
 .page::before {
@@ -21,16 +22,16 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(var(--accent-color-rgb), 0.03) 0%,
-    transparent 70%
+    ellipse at 50% 40%,
+    rgba(var(--accent-color-rgb), 0.04) 0%,
+    transparent 68%
   );
   pointer-events: none;
 }
 
 .container {
   width: 100%;
-  max-width: 640px;
+  max-width: 600px;
   position: relative;
   z-index: 1;
 }
@@ -40,12 +41,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 32px;
+  gap: 28px;
 }
 
-/* Staggered entrance — each direct child animates in sequence */
+/* Staggered entrance — GPU-composited so no layout recalc during animation */
 .header {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  will-change: transform, opacity;
   animation: home-enter var(--dur-slow) var(--ease-out) both;
   animation-delay: 0ms;
 }
@@ -54,9 +56,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+  will-change: transform, opacity;
   animation: home-enter var(--dur-slow) var(--ease-out) both;
-  animation-delay: 80ms;
+  animation-delay: 70ms;
 }
 
 .actions {
@@ -64,114 +67,122 @@
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 8px;
+  will-change: transform, opacity;
   animation: home-enter var(--dur-slow) var(--ease-out) both;
-  animation-delay: 180ms;
+  animation-delay: 150ms;
 }
 
 .links {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 16px;
-  padding-top: 32px;
+  margin-top: 8px;
+  padding-top: 28px;
   border-top: 1px solid var(--border-subtle);
+  will-change: transform, opacity;
   animation: home-enter var(--dur-slow) var(--ease-out) both;
-  animation-delay: 260ms;
+  animation-delay: 220ms;
 }
 
 .icon {
   color: var(--accent-color);
-  opacity: 0.8;
-  transition: opacity var(--dur-fast) var(--ease-quart),
+  opacity: 0.75;
+  transition:
+    opacity var(--dur-fast) var(--ease-quart),
     transform var(--dur-base) var(--ease-spring);
 }
 
 .icon:hover {
   opacity: 1;
-  transform: rotate(-8deg) scale(1.1);
+  transform: rotate(-8deg) scale(1.12);
 }
+
+/* ── Typography ───────────────────────────────────── */
 
 .greeting {
   margin: 0;
-  font-size: 11px;
+  font-size: 10.5px;
+  font-weight: 500;
   color: var(--text-faint);
   font-family: var(--font-mono);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .name {
   margin: 0;
-  font-size: 64px;
+  font-size: clamp(40px, 8vw, 68px);
   font-weight: 700;
   color: var(--text-color);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 .role {
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--accent-color);
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+  max-width: 480px;
 }
 
 .divider {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--accent-color),
-    transparent
-  );
-  margin: 8px 0;
-  opacity: 0.6;
+  width: 48px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  opacity: 0.55;
 }
 
 .description {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.85;
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.8;
   color: var(--text-muted);
-  max-width: 560px;
+  max-width: 520px;
   font-family: var(--font-ui);
 }
 
-/* Buttons */
+/* ── Buttons ──────────────────────────────────────── */
+
 .primaryAction,
 .secondaryAction {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 11px 22px;
   border-radius: var(--radius-sm);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
   text-decoration: none;
   font-family: var(--font-ui);
+  letter-spacing: 0.005em;
   transition:
     transform var(--dur-fast) var(--ease-spring),
     box-shadow var(--dur-fast) var(--ease-quart),
-    background var(--dur-fast) var(--ease-quart);
+    background var(--dur-fast) var(--ease-quart),
+    color var(--dur-fast) var(--ease-quart);
 }
 
 .primaryAction {
   background: var(--accent-color);
   color: var(--button-text);
-  box-shadow: 0 2px 12px rgba(var(--accent-color-rgb), 0.28);
+  box-shadow: 0 2px 10px rgba(var(--accent-color-rgb), 0.25),
+              0 1px 2px rgba(0,0,0,0.2);
 }
 
 .primaryAction:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(var(--accent-color-rgb), 0.38);
+  box-shadow: 0 6px 18px rgba(var(--accent-color-rgb), 0.36),
+              0 2px 4px rgba(0,0,0,0.2);
 }
 
 .primaryAction:active {
-  transform: translateY(0) scale(0.97);
-  box-shadow: 0 1px 6px rgba(var(--accent-color-rgb), 0.2);
+  transform: scale(0.97);
+  box-shadow: 0 1px 4px rgba(var(--accent-color-rgb), 0.18);
 }
 
 .secondaryAction {
@@ -188,24 +199,26 @@
 }
 
 .secondaryAction:active {
-  transform: translateY(0) scale(0.97);
+  transform: scale(0.97);
 }
 
-/* Social links */
+/* ── Social links ─────────────────────────────────── */
+
 .link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   color: var(--text-faint);
   font-size: 12px;
+  font-weight: 400;
   font-family: var(--font-ui);
   text-decoration: none;
+  padding: 5px 9px;
+  border-radius: var(--radius-sm);
   transition:
     color var(--dur-fast) var(--ease-quart),
     background var(--dur-fast) var(--ease-quart),
     transform var(--dur-fast) var(--ease-spring);
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
 }
 
 .link:hover {
@@ -214,28 +227,20 @@
   transform: translateY(-1px);
 }
 
-.link:active {
-  transform: translateY(0) scale(0.97);
-}
+.link:active { transform: scale(0.97); }
 
 .linkSeparator {
   color: var(--border-strong);
-  font-size: 12px;
+  font-size: 11px;
+  user-select: none;
 }
 
-/* Responsive */
+/* ── Responsive ───────────────────────────────────── */
+
 @media (max-width: 640px) {
-  .page {
-    padding: 40px 24px;
-  }
+  .page { padding: 36px 20px; }
 
-  .name {
-    font-size: 40px;
-  }
-
-  .role {
-    font-size: 14px;
-  }
+  .role { font-size: 13px; }
 
   .description {
     font-size: 13px;

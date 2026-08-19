@@ -61,11 +61,11 @@
   --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --dur-instant: 80ms;
-  --dur-fast: 130ms;
-  --dur-base: 200ms;
-  --dur-slow: 320ms;
-  --dur-slower: 480ms;
+  --dur-instant: 60ms;
+  --dur-fast: 110ms;
+  --dur-base: 180ms;
+  --dur-slow: 260ms;
+  --dur-slower: 400ms;
 
   /* ---- Chrome metrics ---- */
   --titlebar-h: 34px;
@@ -106,12 +106,12 @@ body {
   font-family: var(--font-ui);
   background: var(--main-bg);
   color: var(--text-primary);
-  /* Inter's default figures are proportional; tabular reads better in chrome
-     where numbers update in place (clock, counters, FPS). */
-  font-feature-settings: 'cv11' 1, 'ss01' 1;
+  /* Tabular figures for numbers that update in-place (clock, counters). */
+  font-feature-settings: 'cv11' 1, 'ss01' 1, 'tnum' 1;
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: geometricPrecision;
   overflow: hidden;
 }
 
@@ -215,7 +215,7 @@ body {
 @keyframes ide-editor-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(5px);
   }
   to {
     opacity: 1;

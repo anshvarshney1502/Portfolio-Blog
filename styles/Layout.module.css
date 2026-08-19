@@ -39,6 +39,7 @@
 /* Each page's root mounts fresh on navigation, re-triggering the keyframe */
 .pageWrapper {
   min-height: 100%;
+  will-change: transform, opacity;
   animation: ide-editor-in var(--dur-base) var(--ease-out) both;
 }
 

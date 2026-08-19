@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { VscTerminal, VscClose, VscAdd, VscSplitHorizontal } from 'react-icons/vsc';
+import { VscTerminal, VscClose, VscAdd } from 'react-icons/vsc';
 
 import { useIDE } from '@/components/ide/IDEProvider';
 import { onTerminalAction } from '@/lib/ide/terminalBus';
@@ -420,9 +420,6 @@ export default function Terminal() {
         <div className={styles.headerRight}>
           <button className={styles.headerBtn} title="New Terminal" onClick={() => setLines(BOOT_LINES)}>
             <VscAdd size={13} />
-          </button>
-          <button className={styles.headerBtn} title="Split" onClick={() => ide.notify('Split terminal coming soon')}>
-            <VscSplitHorizontal size={13} />
           </button>
           <button className={styles.headerBtn} title="Close" onClick={() => ide.setTerminalOpen(false)}>
             <VscClose size={13} />
