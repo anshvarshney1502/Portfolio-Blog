@@ -154,6 +154,7 @@ export function IDEProvider({ children }: { children: React.ReactNode }) {
 
   const toastId = useRef(0);
   const hydrated = useRef(false);
+  const tabsRef = useRef<string[]>(DEFAULT_OPEN_TABS);
 
   /* ------------------------------------------------------------ storage -- */
   // Reading localStorage during render would mismatch the server HTML, so the
@@ -214,6 +215,9 @@ export function IDEProvider({ children }: { children: React.ReactNode }) {
 
   /* -------------------------------------------------------------- tabs -- */
 
+  // Keep tabsRef in sync so closeTab can read current tabs without a re-render.
+  useEffect(() => { tabsRef.current = tabs; }, [tabs]);
+
   // Landing directly on a URL whose tab was closed should reopen it rather
   // than leave the tab bar disagreeing with the editor.
   useEffect(() => {
@@ -233,20 +237,17 @@ export function IDEProvider({ children }: { children: React.ReactNode }) {
 
   const closeTab = useCallback(
     (path: string) => {
-      setTabs((prev) => {
-        const index = prev.indexOf(path);
-        if (index === -1) return prev;
-        const next = prev.filter((p) => p !== path);
-
-        // Closing the tab you are looking at should land you on its neighbour,
-        // the way an editor does — not on a blank screen.
-        if (path === activePath && next.length) {
-          const fallback = next[Math.min(index, next.length - 1)];
-          router.push(fallback);
-        }
-        return next;
-      });
-      setPinned((prev) => prev.filter((p) => p !== path));
+      const prev = tabsRef.current;
+      const index = prev.indexOf(path);
+      if (index === -1) { playSound('close'); return; }
+      const next = prev.filter((p) => p !== path);
+      setTabs(next);
+      setPinned((p) => p.filter((p) => p !== path));
+      // Navigate to neighbour AFTER updating state to avoid calling router
+      // dispatch inside a setState updater (causes React concurrent-mode warning).
+      if (path === activePath && next.length) {
+        router.push(next[Math.min(index, next.length - 1)]);
+      }
       playSound('close');
     },
     [activePath, router]

@@ -97,8 +97,27 @@ export default async function ArticlesPage() {
               />
             ))
           ) : (
-            <div style={{ color: 'rgba(255, 255, 255, 0.5)', padding: '24px 0', fontSize: '14px' }}>
-              No published DEV.to articles found. Set up `DEV_TO_API_KEY` in `.env.local` to sync your posts.
+            <div style={{
+              color: 'var(--text-muted)',
+              padding: '48px 0',
+              fontSize: '14px',
+              textAlign: 'center',
+              lineHeight: '1.8',
+              fontFamily: 'var(--font-ui)',
+            }}>
+              <p style={{ margin: '0 0 8px', color: 'var(--text-secondary)', fontWeight: 500 }}>No articles found</p>
+              <p style={{ margin: 0 }}>
+                Articles from{' '}
+                <a
+                  href={`https://dev.to/anshvarshney1502`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--accent-color)', textDecoration: 'none' }}
+                >
+                  dev.to/anshvarshney1502
+                </a>{' '}
+                will appear here once published.
+              </p>
             </div>
           )}
         </div>

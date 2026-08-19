@@ -15,20 +15,19 @@ export const metadata: Metadata = {
 export const revalidate = 600;
 
 async function getGithubData() {
-  const userRes = await fetch(
-    `https://api.github.com/users/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`
-  );
-  if (!userRes.ok) {
-    throw new Error(`Failed to fetch user: ${userRes.status}`);
-  }
+  const username = process.env.NEXT_PUBLIC_GITHUB_USERNAME;
+  const token = process.env.GITHUB_API_KEY;
+  const headers: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+
+  const userRes = await fetch(`https://api.github.com/users/${username}`, { headers });
+  if (!userRes.ok) throw new Error(`Failed to fetch user: ${userRes.status}`);
   const user: User = await userRes.json();
 
   const repoRes = await fetch(
-    `https://api.github.com/users/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}/repos?sort=pushed&per_page=6`
+    `https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`,
+    { headers }
   );
-  if (!repoRes.ok) {
-    throw new Error(`Failed to fetch repos: ${repoRes.status}`);
-  }
+  if (!repoRes.ok) throw new Error(`Failed to fetch repos: ${repoRes.status}`);
   const repos: Repo[] = await repoRes.json();
 
   return { user, repos };
@@ -122,16 +121,13 @@ export default async function GithubPage() {
           <div className={styles.contributions}>
             <GitHubCalendar
               username={process.env.NEXT_PUBLIC_GITHUB_USERNAME!}
-              hideColorLegend
-              hideMonthLabels
               colorScheme="dark"
               theme={{
                 dark: ['#161B22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-                light: ['#161B22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+                light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
               }}
-              style={{
-                width: '100%',
-              }}
+              style={{ width: '100%', color: 'var(--text-secondary)' }}
+              fontSize={12}
             />
           </div>
         </section>
