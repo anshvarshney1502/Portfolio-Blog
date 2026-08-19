@@ -63,12 +63,14 @@ interface IDEContextValue {
   statusbarVisible: boolean;
   minimapVisible: boolean;
   terminalOpen: boolean;
+  chatOpen: boolean;
   toggleExplorer: () => void;
   toggleSidebar: () => void;
   toggleStatusbar: () => void;
   toggleMinimap: () => void;
   toggleTerminal: () => void;
   setTerminalOpen: (open: boolean) => void;
+  toggleChat: () => void;
 
   // ---- modes ----
   zenMode: boolean;
@@ -137,6 +139,7 @@ export function IDEProvider({ children }: { children: React.ReactNode }) {
   const [statusbarVisible, setStatusbarVisible] = useState(true);
   const [minimapVisible, setMinimapVisible] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   const [zenMode, setZenMode] = useState(false);
   const [presentationMode, setPresentationMode] = useState(false);
@@ -296,6 +299,13 @@ export function IDEProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const toggleChat = useCallback(() => {
+    setChatOpen((v) => {
+      playSound(v ? 'close' : 'open');
+      return !v;
+    });
+  }, []);
+
   const toggleZen = useCallback(() => {
     setZenMode((v) => {
       const next = !v;
@@ -411,12 +421,14 @@ export function IDEProvider({ children }: { children: React.ReactNode }) {
       statusbarVisible,
       minimapVisible,
       terminalOpen,
+      chatOpen,
       toggleExplorer,
       toggleSidebar,
       toggleStatusbar,
       toggleMinimap,
       toggleTerminal,
       setTerminalOpen,
+      toggleChat,
       zenMode,
       presentationMode,
       toggleZen,
@@ -456,11 +468,13 @@ export function IDEProvider({ children }: { children: React.ReactNode }) {
       statusbarVisible,
       minimapVisible,
       terminalOpen,
+      chatOpen,
       toggleExplorer,
       toggleSidebar,
       toggleStatusbar,
       toggleMinimap,
       toggleTerminal,
+      toggleChat,
       zenMode,
       presentationMode,
       toggleZen,

@@ -1,0 +1,408 @@
+/* ── Chat Panel — VS Code secondary sidebar, premium Copilot-style ───── */
+
+.panel {
+  width: 280px;
+  min-width: 240px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--sidebar-bg, #1e1e2e);
+  border-left: 1px solid var(--border-subtle);
+  font-family: var(--font-ui);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  padding: 0 8px 0 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  flex: 1;
+  user-select: none;
+}
+
+.hBtns {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.hSep {
+  width: 1px;
+  height: 13px;
+  background: var(--border-subtle);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.hBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 0;
+  transition: color 100ms, background 100ms;
+}
+
+.hBtn:hover {
+  color: var(--text-color);
+  background: var(--surface-hover);
+}
+
+/* ── Sessions bar ────────────────────────────────────────────────── */
+
+.sessionsBar {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 8px 0 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.sessionsLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  flex: 1;
+  user-select: none;
+}
+
+.sBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 0;
+  transition: color 100ms, background 100ms, transform 200ms;
+}
+
+.sBtn:hover {
+  color: var(--text-color);
+  background: var(--surface-hover);
+}
+
+.sBtn:active {
+  transform: rotate(180deg);
+}
+
+/* ── Body (scroll area) ──────────────────────────────────────────── */
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.body::-webkit-scrollbar { width: 3px; }
+.body::-webkit-scrollbar-track { background: transparent; }
+.body::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 2px;
+}
+
+/* ── Empty / welcome state ───────────────────────────────────────── */
+
+.emptyBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 16px 16px;
+  gap: 10px;
+}
+
+.emptyLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(var(--accent-color-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-color-rgb), 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.emptyTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.emptySub {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  margin: 0;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 220px;
+}
+
+/* Suggestion chips — monospace command-style */
+.chips {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.chip {
+  padding: 7px 11px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  font-size: 12px;
+  color: var(--accent-color);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-mono);
+  letter-spacing: 0.01em;
+  transition:
+    background 120ms,
+    border-color 120ms,
+    transform 100ms var(--ease-spring, ease);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip:hover {
+  background: rgba(var(--accent-color-rgb), 0.08);
+  border-color: rgba(var(--accent-color-rgb), 0.3);
+  transform: translateX(2px);
+}
+
+/* ── Conversation turns ──────────────────────────────────────────── */
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+/* Each turn (one user or bot message) */
+.turn {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: turnIn 0.15s ease-out both;
+}
+
+@keyframes turnIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* User turn: subtle tinted strip */
+.turnUser {
+  background: rgba(var(--accent-color-rgb), 0.05);
+  border-top: 1px solid rgba(var(--accent-color-rgb), 0.08);
+  border-bottom: 1px solid rgba(var(--accent-color-rgb), 0.08);
+}
+
+/* Bot turn: plain, left accent line */
+.turnBot {
+  border-left: 2px solid var(--accent-color);
+  margin-left: 0;
+}
+
+/* Turn header row: avatar + name */
+.turnHead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px 4px;
+}
+
+.turnAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  color: var(--text-faint);
+}
+
+.turnUser .turnAvatar {
+  color: var(--accent-color);
+}
+
+.turnName {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.turnUser .turnName {
+  color: var(--accent-color);
+}
+
+.turnBot .turnName {
+  color: var(--text-secondary);
+}
+
+/* Turn body: the actual message content */
+.turnBody {
+  padding: 0 12px 10px 36px;
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.turnUser .turnBody {
+  padding-left: 36px;
+}
+
+.userText {
+  color: var(--text-color);
+  word-break: break-word;
+}
+
+.botText {
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+/* Markdown styles inside botText */
+.botText strong { color: var(--text-color); font-weight: 600; }
+.botText em     { color: var(--accent-color); font-style: normal; }
+.botText a      { color: var(--accent-color); text-decoration: none; }
+.botText a:hover { text-decoration: underline; }
+.botText code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--text-color);
+}
+
+/* ── Bottom: tip + input ─────────────────────────────────────────── */
+
+.bottom {
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tip {
+  padding: 7px 12px;
+  font-size: 10.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.tip strong { color: var(--text-secondary); font-weight: 600; }
+
+.tipLink {
+  color: var(--accent-color);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: var(--font-mono);
+}
+
+.tipLink:hover { text-decoration: underline; }
+
+/* Input row */
+.inputWrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 8px 10px 10px;
+}
+
+.textarea {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  color: var(--text-color);
+  line-height: 1.5;
+  min-height: 18px;
+  max-height: 90px;
+  overflow-y: auto;
+  padding: 1px 0;
+}
+
+.textarea::placeholder { color: var(--text-faint); }
+
+.sendBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  background: var(--accent-color);
+  border: none;
+  color: var(--button-text, #fff);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  opacity: 0.9;
+  transition: opacity 120ms, transform 100ms;
+}
+
+.sendBtn:hover:not(:disabled) { opacity: 1; transform: translateY(-1px); }
+.sendBtn:active:not(:disabled) { transform: scale(0.94); }
+.sendBtn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+/* Mobile: fixed overlay */
+@media (max-width: 768px) {
+  .panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+    width: 280px;
+    box-shadow: -6px 0 32px rgba(0, 0, 0, 0.5);
+  }
+}

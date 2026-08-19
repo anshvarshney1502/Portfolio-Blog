@@ -104,15 +104,6 @@ export const IDE_FILES: IDEFile[] = [
     label: 'Notes',
     description: 'Editable profile notes',
   },
-  {
-    path: '/chat',
-    name: 'chat.ai',
-    icon: '/logos/react_icon.svg',
-    folder: 'portfolio',
-    language: 'AI Chat',
-    label: 'Chat',
-    description: 'Ask anything about Ansh',
-  },
 ];
 
 export const FOLDERS: { id: 'portfolio' | 'blogs'; label: string }[] = [

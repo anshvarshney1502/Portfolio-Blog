@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import { VscComment } from 'react-icons/vsc';
 import MenuPanel, { type MenuItem } from '@/components/ide/MenuPanel';
 import { useIDE } from '@/components/ide/IDEProvider';
 import { IDE_FILES, getFile } from '@/lib/ide/files';
@@ -296,6 +297,15 @@ export default function Titlebar() {
       </p>
 
       <div className={styles.right}>
+        <button
+          className={styles.chatToggle}
+          title="Toggle Chat Panel"
+          aria-label="Toggle Chat Panel"
+          onClick={ide.toggleChat}
+          data-active={ide.chatOpen ? 'true' : undefined}
+        >
+          <VscComment size={16} />
+        </button>
         <div className={styles.windowButtons}>
           <button
             className={`${styles.dot} ${styles.minimize}`}

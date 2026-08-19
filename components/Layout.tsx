@@ -11,6 +11,7 @@ import Bottombar from '@/components/Bottombar';
 import Tabsbar from '@/components/Tabsbar';
 import Terminal from '@/components/Terminal';
 import CommandPalette from '@/components/CommandPalette';
+import ChatPanel from '@/components/ChatPanel';
 import Toasts from '@/components/ide/Toasts';
 
 import styles from '@/styles/Layout.module.css';
@@ -108,7 +109,7 @@ function IDEShell({ children }: LayoutProps) {
     };
   }, [ide, router]);
 
-  const { zenMode, explorerVisible, sidebarVisible, statusbarVisible, terminalOpen } = ide;
+  const { zenMode, explorerVisible, sidebarVisible, statusbarVisible, terminalOpen, chatOpen } = ide;
 
   return (
     <div
@@ -120,7 +121,7 @@ function IDEShell({ children }: LayoutProps) {
       <div className={styles.main}>
         {sidebarVisible && <Sidebar />}
         {explorerVisible && <Explorer />}
-        <div className={styles.editorContainer}>
+        <div className={styles.editorContainer} style={{ minWidth: 0, flex: 1 }}>
           {!zenMode && <Tabsbar />}
           <div className={styles.editorWithTerminal}>
             <main id="main-editor" className={styles.content}>
@@ -134,6 +135,7 @@ function IDEShell({ children }: LayoutProps) {
             </div>
           </div>
         </div>
+        {chatOpen && !zenMode && <ChatPanel />}
       </div>
       {statusbarVisible && !zenMode && <Bottombar />}
       <CommandPalette />

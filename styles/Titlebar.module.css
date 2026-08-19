@@ -28,6 +28,32 @@
 
 .right {
   justify-content: flex-end;
+  gap: 4px;
+}
+
+.chatToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  margin-right: 4px;
+  transition: color 100ms, background 100ms;
+}
+
+.chatToggle:hover {
+  color: var(--text-color);
+  background: var(--surface-hover);
+}
+
+.chatToggle[data-active] {
+  color: var(--accent-color);
+  background: rgba(var(--accent-color-rgb), 0.12);
 }
 
 .icon {
