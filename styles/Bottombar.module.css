@@ -1,56 +1,72 @@
 .bottomBar {
-  background: var(--bottombar-bg);
-  height: 25px;
-  border-top: 1px solid var(--bottombar-border);
-  color: rgb(225, 228, 232);
-  padding: 0 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.8rem;
+  height: var(--statusbar-h);
+  padding: 0 4px;
+  background: var(--bottombar-bg);
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  z-index: var(--z-chrome);
+  user-select: none;
 }
 
 .bottomBar a {
-  color: white;
+  color: inherit;
   text-decoration: none;
 }
 
-.icon {
-  margin-right: 4px;
-}
-
-.container {
+.group {
   display: flex;
   align-items: center;
+  gap: 0;
 }
 
 .section {
   display: flex;
-  margin-right: 0.5rem;
-  height: 24px;
   align-items: center;
-  padding: 0 0.2rem;
+  gap: 4px;
+  height: var(--statusbar-h);
+  padding: 0 7px;
   cursor: pointer;
-  font-family: 'Source Sans Pro', sans-serif;
+  border-radius: 0;
+  white-space: nowrap;
+  transition: background var(--dur-instant) var(--ease-quart),
+    color var(--dur-instant) var(--ease-quart);
 }
 
 .section:hover {
-  background: var(--bottombar-hover-bg);
+  background: var(--surface-hover);
+  color: var(--text-primary);
 }
 
 .section.active {
-  background: var(--bottombar-hover-bg);
-}
-
-.section.active .icon {
+  background: var(--surface-active);
   color: var(--accent-color);
 }
 
-@media screen and (max-width: 600px) {
+.icon {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.ml {
+  margin-left: 4px;
+}
+
+.online {
+  color: #3fb950;
+}
+
+.offline {
+  color: #f85149;
+}
+
+@media (max-width: 600px) {
   .bottomBar {
-    font-size: 0.6rem;
-  }
-  .section {
-    margin-right: 0.5rem;
+    font-size: 0.6875rem;
   }
 }

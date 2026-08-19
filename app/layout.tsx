@@ -1,9 +1,30 @@
 import type { Metadata } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 
 import Layout from '@/components/Layout';
 
 import '@/styles/globals.css';
 import '@/styles/themes.css';
+import '@/styles/tokens.css';
+
+/*
+ * Inter carries the chrome (menus, tabs, status bar) — it is the face modern
+ * desktop apps are set in and it holds up at 11-13px where Source Sans Pro
+ * starts to blur. JetBrains Mono stays on everything that is meant to read as
+ * code: the editor body and the terminal.
+ */
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-ui',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -32,8 +53,10 @@ export const metadata: Metadata = {
     description:
       'Building intelligent software with data, AI, and open source.',
     images: ['https://imgur.com/4zi5KkQ.png'],
-    url: 'https://github.com/anshvarshney1502/vscode-portfolio',
+    url: 'https://anshvarshneyportfolio-blog.vercel.app/',
+    type: 'website',
   },
+  metadataBase: new URL('https://anshvarshneyportfolio-blog.vercel.app'),
   twitter: {
     card: 'summary_large_image',
   },
@@ -61,7 +84,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="night-owl" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="night-owl"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

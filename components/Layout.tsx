@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
+import { IDEProvider, useIDE } from '@/components/ide/IDEProvider';
 import Titlebar from '@/components/Titlebar';
 import Sidebar from '@/components/Sidebar';
 import Explorer from '@/components/Explorer';
@@ -10,6 +11,7 @@ import Bottombar from '@/components/Bottombar';
 import Tabsbar from '@/components/Tabsbar';
 import Terminal from '@/components/Terminal';
 import CommandPalette from '@/components/CommandPalette';
+import Toasts from '@/components/ide/Toasts';
 
 import styles from '@/styles/Layout.module.css';
 
@@ -17,115 +19,134 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+/* Inner shell — has access to IDEProvider context */
+function IDEShell({ children }: LayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [chordKey, setChordKey] = useState<string | null>(null);
+  const ide = useIDE();
 
-  const toggleTerminal = useCallback(() => {
-    setIsTerminalOpen(prev => !prev);
-  }, []);
-
-  const openCommandPalette = useCallback(() => {
-    setIsCommandPaletteOpen(true);
-  }, []);
-
-  const closeCommandPalette = useCallback(() => {
-    setIsCommandPaletteOpen(false);
-  }, []);
-
+  /* Scroll-to-top on page change */
   useEffect(() => {
     const main = document.getElementById('main-editor');
-    if (main) {
-      main.scrollTop = 0;
-    }
+    if (main) main.scrollTop = 0;
   }, [pathname]);
 
+  /* Global keyboard shortcuts */
   useEffect(() => {
     const navigationRoutes: Record<string, string> = {
-      'h': '/',
-      'a': '/about',
-      'p': '/projects',
-      'r': '/articles',
-      'c': '/contact',
-      'g': '/github',
-      's': '/settings',
+      h: '/',
+      a: '/about',
+      p: '/projects',
+      r: '/articles',
+      c: '/contact',
+      g: '/github',
+      s: '/settings',
+    };
+
+    let chordKey: string | null = null;
+    let chordTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const clearChord = () => {
+      chordKey = null;
+      if (chordTimer) { clearTimeout(chordTimer); chordTimer = null; }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isCommandPaletteOpen) return;
+      if (ide.paletteOpen) return;
+      const target = e.target as Element;
+      const inInput = target.closest('input, textarea, [contenteditable]');
 
-      if ((e.ctrlKey || e.metaKey) && e.key === '`') {
-        e.preventDefault();
-        toggleTerminal();
+      /* Ctrl/Cmd shortcuts */
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === '`') { e.preventDefault(); ide.toggleTerminal(); return; }
+        if (e.shiftKey && e.key.toLowerCase() === 'p') { e.preventDefault(); ide.openPalette('commands'); return; }
+        if (!e.shiftKey && e.key.toLowerCase() === 'p') { e.preventDefault(); ide.openPalette('files'); return; }
+        if (e.key.toLowerCase() === 'b') { e.preventDefault(); ide.toggleExplorer(); return; }
+      }
+
+      if (e.key === 'Escape' && ide.terminalOpen) { ide.setTerminalOpen(false); return; }
+      if (e.key === 'F11') { e.preventDefault();
+        if (document.fullscreenElement) void document.exitFullscreen();
+        else void document.documentElement.requestFullscreen();
         return;
       }
 
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'p') {
-        e.preventDefault();
-        openCommandPalette();
-        return;
-      }
+      if (inInput) return;
 
       const key = e.key.toLowerCase();
 
-      if (chordKey === 'g' && navigationRoutes[key]) {
-        e.preventDefault();
-        router.push(navigationRoutes[key]);
-        setChordKey(null);
-        return;
+      /* Two-key chord navigation: G → letter */
+      if (chordKey === 'g') {
+        if (navigationRoutes[key]) {
+          e.preventDefault();
+          router.push(navigationRoutes[key]);
+          clearChord();
+          return;
+        }
+        clearChord();
       }
 
-      if (chordKey === 'k' && key === 't') {
-        e.preventDefault();
-        openCommandPalette();
-        setChordKey(null);
-        return;
+      /* K → T opens command palette */
+      if (chordKey === 'k') {
+        if (key === 't') { e.preventDefault(); ide.openPalette('commands'); clearChord(); return; }
+        if (key === 'z') { e.preventDefault(); ide.toggleZen(); clearChord(); return; }
+        clearChord();
       }
 
-      if ((key === 'g' || key === 'k') && !(e.target instanceof Element && e.target.closest('input, textarea'))) {
+      if (key === 'g' || key === 'k') {
         e.preventDefault();
-        setChordKey(key);
-        setTimeout(() => setChordKey(null), 2000);
+        chordKey = key;
+        chordTimer = setTimeout(clearChord, 2000);
         return;
-      }
-
-      if (chordKey && key !== chordKey) {
-        setChordKey(null);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleTerminal, openCommandPalette, chordKey, router, isCommandPaletteOpen]);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      if (chordTimer) clearTimeout(chordTimer);
+    };
+  }, [ide, router]);
+
+  const { zenMode, explorerVisible, sidebarVisible, statusbarVisible, terminalOpen } = ide;
 
   return (
-    <div className={styles.layout}>
-      <Titlebar onOpenCommandPalette={openCommandPalette} />
+    <div
+      className={`${styles.layout} ${zenMode ? styles.zen : ''}`}
+      data-sidebar={sidebarVisible ? 'visible' : 'hidden'}
+      data-explorer={explorerVisible ? 'visible' : 'hidden'}
+    >
+      {!zenMode && <Titlebar />}
       <div className={styles.main}>
-        <Sidebar />
-        <Explorer />
+        {sidebarVisible && <Sidebar />}
+        {explorerVisible && <Explorer />}
         <div className={styles.editorContainer}>
-          <Tabsbar />
+          {!zenMode && <Tabsbar />}
           <div className={styles.editorWithTerminal}>
             <main id="main-editor" className={styles.content}>
-              {children}
+              <div key={pathname} className={styles.pageWrapper}>
+                {children}
+              </div>
             </main>
-            {isTerminalOpen && <Terminal onToggle={toggleTerminal} />}
+            {/* Keep terminal mounted to preserve history; CSS hides it when closed */}
+            <div className={terminalOpen ? undefined : styles.terminalHidden}>
+              <Terminal />
+            </div>
           </div>
         </div>
       </div>
-      <Bottombar onTerminalToggle={toggleTerminal} isTerminalOpen={isTerminalOpen} />
-      <CommandPalette
-        isOpen={isCommandPaletteOpen}
-        onClose={closeCommandPalette}
-        onToggleTerminal={toggleTerminal}
-        isTerminalOpen={isTerminalOpen}
-      />
+      {statusbarVisible && !zenMode && <Bottombar />}
+      <CommandPalette />
+      <Toasts />
     </div>
   );
-};
+}
 
-export default Layout;
+/* Outer wrapper that provides the context */
+export default function Layout({ children }: LayoutProps) {
+  return (
+    <IDEProvider>
+      <IDEShell>{children}</IDEShell>
+    </IDEProvider>
+  );
+}

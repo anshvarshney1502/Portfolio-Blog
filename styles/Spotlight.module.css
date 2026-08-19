@@ -1,0 +1,37 @@
+.spotlight {
+  --spot-x: 50vw;
+  --spot-y: 50vh;
+  --spot-opacity: 1;
+
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-spotlight);
+  opacity: var(--spot-opacity);
+  transition: opacity var(--dur-slower) var(--ease-quart);
+
+  /* Two stacked pools: a tight one that tracks the cursor and a wide static
+     one anchored top-left, so the surface still has a light direction when the
+     pointer is somewhere else. */
+  background:
+    radial-gradient(
+      420px circle at var(--spot-x) var(--spot-y),
+      color-mix(in srgb, var(--accent-color) 7%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      900px circle at 15% 0%,
+      color-mix(in srgb, var(--accent-color) 4%, transparent),
+      transparent 60%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight {
+    background: radial-gradient(
+      900px circle at 15% 0%,
+      color-mix(in srgb, var(--accent-color) 4%, transparent),
+      transparent 60%
+    );
+  }
+}

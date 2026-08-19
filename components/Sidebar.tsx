@@ -14,63 +14,44 @@ import {
 
 import styles from '@/styles/Sidebar.module.css';
 
-const sidebarTopItems = [
-  { Icon: VscFiles, path: '/' },
-  { Icon: VscGithubAlt, path: '/github' },
-  { Icon: VscCode, path: '/projects' },
-  { Icon: VscEdit, path: '/articles' },
-  { Icon: VscMail, path: '/contact' },
+const top = [
+  { Icon: VscFiles, path: '/', label: 'Explorer' },
+  { Icon: VscGithubAlt, path: '/github', label: 'GitHub' },
+  { Icon: VscCode, path: '/projects', label: 'Projects' },
+  { Icon: VscEdit, path: '/articles', label: 'Articles' },
+  { Icon: VscMail, path: '/contact', label: 'Contact' },
 ];
 
-const sidebarBottomItems = [
-  { Icon: VscAccount, path: '/about' },
-  { Icon: VscSettings, path: '/settings' },
+const bottom = [
+  { Icon: VscAccount, path: '/about', label: 'About' },
+  { Icon: VscSettings, path: '/settings', label: 'Settings' },
 ];
 
-const Sidebar = () => {
+export default function Sidebar() {
   const pathname = usePathname();
 
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.sidebarTop}>
-        {sidebarTopItems.map(({ Icon, path }) => (
-          <Link href={path} key={path}>
-            <div
-              className={`${styles.iconContainer} ${
-                pathname === path && styles.active
-              }`}
-            >
-              <Icon
-                size={16}
-                fill={
-                  pathname === path
-                    ? 'rgb(225, 228, 232)'
-                    : 'rgb(106, 115, 125)'
-                }
-                className={styles.icon}
-              />
+      <div className={styles.top}>
+        {top.map(({ Icon, path, label }) => (
+          <Link href={path} key={path} title={label} className={styles.link}>
+            <div className={`${styles.item} ${pathname === path ? styles.active : ''}`}>
+              {pathname === path && <span className={styles.activeLine} />}
+              <Icon size={22} className={styles.icon} />
             </div>
           </Link>
         ))}
       </div>
-      <div className={styles.sidebarBottom}>
-        {sidebarBottomItems.map(({ Icon, path }) => (
-          <div className={styles.iconContainer} key={path}>
-            <Link href={path}>
-              <Icon
-                fill={
-                  pathname === path
-                    ? 'rgb(225, 228, 232)'
-                    : 'rgb(106, 115, 125)'
-                }
-                className={styles.icon}
-              />
-            </Link>
-          </div>
+      <div className={styles.bottom}>
+        {bottom.map(({ Icon, path, label }) => (
+          <Link href={path} key={path} title={label} className={styles.link}>
+            <div className={`${styles.item} ${pathname === path ? styles.active : ''}`}>
+              {pathname === path && <span className={styles.activeLine} />}
+              <Icon size={22} className={styles.icon} />
+            </div>
+          </Link>
         ))}
       </div>
     </aside>
   );
-};
-
-export default Sidebar;
+}

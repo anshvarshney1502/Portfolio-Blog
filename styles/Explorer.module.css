@@ -1,76 +1,162 @@
 .explorer {
+  width: var(--explorer-w);
+  flex-shrink: 0;
   background: var(--explorer-bg);
-  width: 18vw;
-  color: rgb(225, 228, 232);
-  font-family: 'Source Sans Pro', sans-serif;
-  border-right: 1px solid var(--explorer-border);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px 6px;
 }
 
 .title {
-  padding: 0.5rem 0.75rem;
-  font-weight: 300;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  margin-bottom: 0.75rem;
+  color: var(--text-faint);
 }
 
-.heading {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+/* ---------------------------------------------------------------- folder */
+
+.folder {
+  margin-bottom: 2px;
+}
+
+.folderHeader {
   display: flex;
   align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
   cursor: pointer;
-  padding: 0 0.5rem;
+  text-align: left;
+  border-radius: 0;
+  transition: color var(--dur-fast) var(--ease-quart);
 }
 
-.checkbox {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
+.folderHeader:hover {
+  color: var(--text-primary);
 }
 
-.files {
-  padding: 0.5rem 0;
-  cursor: pointer;
-}
-
-.file {
-  padding: 0.2rem 1rem;
-  display: flex;
-  align-items: center;
-  font-size: 0.875rem;
-  color: white;
-  text-decoration: none;
-}
-
-.file p {
-  margin-left: 5px;
-}
-
-.file:hover {
-  background: var(--explorer-hover-bg);
+.folderLabel {
+  flex: 1;
+  user-select: none;
 }
 
 .chevron {
-  transition: transform 0.2s;
+  flex-shrink: 0;
+  color: var(--text-faint);
+  transition: transform var(--dur-base) var(--ease-quart);
 }
 
-@media screen and (min-width: 2000px) {
+.chevronOpen {
+  transform: rotate(90deg);
+}
+
+/* Smooth open/close using grid-rows trick */
+.folderContents {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-base) var(--ease-quart);
+  overflow: hidden;
+}
+
+.folderOpen {
+  grid-template-rows: 1fr;
+}
+
+.folderInner {
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- files */
+
+.file {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 8px 3px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background var(--dur-instant) var(--ease-quart),
+    color var(--dur-instant) var(--ease-quart);
+}
+
+.file:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.fileActive {
+  background: var(--surface-selected) !important;
+  color: var(--text-primary) !important;
+}
+
+.fileIcon {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.fileName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pinIcon {
+  flex-shrink: 0;
+  color: var(--accent-color);
+  opacity: 0.6;
+}
+
+.activeBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent-color);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+
+/* Recent section */
+.recentIcon {
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
   .explorer {
-    width: 10vw;
+    width: 180px;
   }
 }
 
-@media screen and (max-width: 900px) {
-  .explorer {
-    width: 20vw;
-  }
-}
-
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
   .explorer {
     display: none;
   }

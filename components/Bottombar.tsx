@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   VscBell,
   VscCheck,
@@ -5,58 +9,117 @@ import {
   VscWarning,
   VscSourceControl,
   VscTerminal,
+  VscSync,
 } from 'react-icons/vsc';
 import { SiNextdotjs } from 'react-icons/si';
 
+import { useIDE } from '@/components/ide/IDEProvider';
+import { getFile, normalizePath } from '@/lib/ide/files';
+import { PROFILE } from '@/lib/ide/profile';
 import styles from '@/styles/Bottombar.module.css';
 
-interface BottombarProps {
-  onTerminalToggle: () => void;
-  isTerminalOpen: boolean;
-}
+export default function Bottombar() {
+  const ide = useIDE();
+  const pathname = usePathname();
+  const activePath = normalizePath(pathname);
+  const file = getFile(activePath);
 
-const Bottombar = ({ onTerminalToggle, isTerminalOpen }: BottombarProps) => {
+  const [time, setTime] = useState('');
+  const [online, setOnline] = useState(true);
+
+  useEffect(() => {
+    const tick = () =>
+      setTime(
+        new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      );
+    tick();
+    const id = setInterval(tick, 30_000);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    setOnline(navigator.onLine);
+    const on = () => setOnline(true);
+    const off = () => setOnline(false);
+    window.addEventListener('online', on);
+    window.addEventListener('offline', off);
+    return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); };
+  }, []);
+
   return (
     <footer className={styles.bottomBar}>
-      <div className={styles.container}>
+      {/* Left group */}
+      <div className={styles.group}>
         <a
-          href="https://github.com/anshvarshney1502/vscode-portfolio"
+          href={PROFILE.repo}
           target="_blank"
           rel="noreferrer noopener"
           className={styles.section}
+          title="View source on GitHub"
         >
-          <VscSourceControl className={styles.icon} />
-          <p>main</p>
+          <VscSourceControl size={13} className={styles.icon} />
+          <span>main</span>
         </a>
-        <div className={styles.section}>
-          <VscError className={styles.icon} />
-          <p className={styles.errorText}>0</p>&nbsp;&nbsp;
-          <VscWarning className={styles.icon} />
-          <p>0</p>
+
+        <div className={styles.section} title="0 errors, 0 warnings">
+          <VscError size={13} className={styles.icon} />
+          <span>0</span>
+          <VscWarning size={13} className={`${styles.icon} ${styles.ml}`} />
+          <span>0</span>
         </div>
       </div>
-      <div className={styles.container}>
+
+      {/* Right group */}
+      <div className={styles.group}>
+        {file && (
+          <div className={styles.section} title="Current file language">
+            <span>{file.language}</span>
+          </div>
+        )}
+
+        <div className={styles.section} title="Online status">
+          <VscSync size={13} className={`${styles.icon} ${online ? styles.online : styles.offline}`} />
+          <span>{online ? 'Online' : 'Offline'}</span>
+        </div>
+
+        {time && (
+          <div className={styles.section} title="Local time">
+            <span>{time}</span>
+          </div>
+        )}
+
         <div
-          className={`${styles.section} ${isTerminalOpen ? styles.active : ''}`}
-          onClick={onTerminalToggle}
+          className={`${styles.section} ${ide.terminalOpen ? styles.active : ''}`}
+          onClick={ide.toggleTerminal}
           title="Toggle Terminal (Ctrl+`)"
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => e.key === 'Enter' && ide.toggleTerminal()}
         >
-          <VscTerminal className={styles.icon} />
+          <VscTerminal size={13} className={styles.icon} />
         </div>
-        <div className={styles.section}>
-          <SiNextdotjs className={styles.icon} />
-          <p>Powered by Next.js</p>
+
+        <div className={styles.section} title={`v${PROFILE.version} — Powered by Next.js`}>
+          <SiNextdotjs size={13} className={styles.icon} />
+          <span>Next.js</span>
         </div>
+
         <div className={styles.section}>
-          <VscCheck className={styles.icon} />
-          <p>Prettier</p>
+          <VscCheck size={13} className={styles.icon} />
+          <span>Prettier</span>
         </div>
-        <div className={styles.section}>
-          <VscBell />
+
+        <div
+          className={styles.section}
+          onClick={() => ide.notify('No new notifications')}
+          title="Notifications"
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => e.key === 'Enter' && ide.notify('No new notifications')}
+        >
+          <VscBell size={13} />
         </div>
       </div>
     </footer>
   );
-};
-
-export default Bottombar;
+}

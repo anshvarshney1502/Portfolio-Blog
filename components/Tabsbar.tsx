@@ -1,31 +1,40 @@
-import Tab from '@/components/Tab';
+'use client';
 
+import { useRef } from 'react';
+import { usePathname } from 'next/navigation';
+
+import { useIDE } from '@/components/ide/IDEProvider';
+import { getFile, normalizePath } from '@/lib/ide/files';
+import Tab from '@/components/Tab';
 import styles from '@/styles/Tabsbar.module.css';
 
-const Tabsbar = () => {
+export default function Tabsbar() {
+  const ide = useIDE();
+  const pathname = usePathname();
+  const activePath = normalizePath(pathname);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  /* Scroll the active tab into view on navigation */
+  const handleRef = (el: HTMLDivElement | null) => {
+    if (!el) return;
+    scrollRef.current = el;
+  };
+
   return (
-    <div className={styles.tabs}>
-      <Tab icon="/logos/react_icon.svg" filename="home.tsx" path="/" />
-      <Tab icon="/logos/html_icon.svg" filename="about.html" path="/about" />
-      <Tab icon="/logos/css_icon.svg" filename="contact.css" path="/contact" />
-      <Tab icon="/logos/js_icon.svg" filename="projects.js" path="/projects" />
-      <Tab
-        icon="/logos/json_icon.svg"
-        filename="articles.json"
-        path="/articles"
-      />
-      <Tab
-        icon="/logos/markdown_icon.svg"
-        filename="github.md"
-        path="/github"
-      />
-      <Tab
-        icon="/logos/react_icon.svg"
-        filename="Coders'HighPython.tsx"
-        path="/blogs/CodersHighPython"
-      />
+    <div className={styles.bar} role="tablist" aria-label="Open files">
+      <div className={styles.tabs} ref={handleRef}>
+        {ide.tabs.map(path => {
+          const file = getFile(path);
+          if (!file) return null;
+          return (
+            <Tab
+              key={path}
+              file={file}
+              isActive={path === activePath}
+            />
+          );
+        })}
+      </div>
     </div>
   );
-};
-
-export default Tabsbar;
+}

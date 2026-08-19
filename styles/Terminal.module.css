@@ -1,30 +1,33 @@
 .terminal {
   display: flex;
   flex-direction: column;
-  height: 25vh;
-  min-height: 150px;
-  background: var(--terminal-bg, var(--main-bg));
-  border-top: 1px solid var(--terminal-border, var(--bottombar-border));
-  font-family: 'JetBrains Mono', monospace;
+  height: 280px;
+  flex-shrink: 0;
+  background: var(--terminal-bg);
+  border-top: 1px solid var(--border-default);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  animation: ide-fade-in var(--dur-base) var(--ease-out);
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 0.5rem;
-  height: 32px;
-  background: var(--terminal-header-bg, var(--tabs-bg));
-  border-bottom: 1px solid var(--terminal-border, var(--bottombar-border));
-  color: var(--text-color);
-  font-size: 0.85rem;
-  user-select: none;
+  justify-content: space-between;
+  height: 34px;
+  padding: 0 10px;
+  background: var(--terminal-header-bg);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
 }
 
 .headerLeft {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
 }
 
 .terminalIcon {
@@ -34,97 +37,111 @@
 .headerRight {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 2px;
 }
 
 .headerBtn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 22px;
-  background: transparent;
+  width: 26px;
+  height: 26px;
   border: none;
-  color: var(--text-color);
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  border-radius: 2px;
-  padding: 0;
+  transition: background var(--dur-instant) var(--ease-quart),
+    color var(--dur-instant) var(--ease-quart);
 }
 
 .headerBtn:hover {
-  background: var(--bottombar-hover-bg);
+  background: var(--surface-hover);
+  color: var(--text-primary);
 }
 
 .body {
   flex: 1;
   overflow-y: auto;
-  padding: 0.5rem;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--text-color);
-}
-
-.body::-webkit-scrollbar {
-  width: 10px;
-}
-
-.body::-webkit-scrollbar-track {
-  background: var(--scrollbar-track-bg);
-}
-
-.body::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb-bg);
+  padding: 8px 12px 8px;
+  cursor: text;
 }
 
 .line {
+  padding: 1px 0;
   white-space: pre-wrap;
   word-break: break-all;
+  /* --terminal-text is set by light themes so terminal stays readable
+     regardless of whether the overall palette is light or dark */
+  color: var(--terminal-text, var(--text-secondary));
+  line-height: 1.6;
 }
 
-.line.input {
-  color: var(--accent-color);
+.input {
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
-.line.error {
+.error {
   color: #f85149;
 }
 
-.inputLine {
+.info {
+  color: var(--accent-color);
+}
+
+.success {
+  color: #3fb950;
+}
+
+.dim {
+  color: var(--terminal-dim, var(--text-muted));
+}
+
+.ascii {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* ----------------------------------------------------------- input row */
+
+.inputRow {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  padding: 4px 0 2px;
 }
 
 .prompt {
   color: var(--accent-color);
+  white-space: nowrap;
   flex-shrink: 0;
+  font-weight: 500;
 }
 
-.input {
+.inputWrap {
+  position: relative;
   flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.inputField {
+  width: 100%;
   background: transparent;
   border: none;
   outline: none;
-  color: var(--text-color);
-  font-family: inherit;
-  font-size: inherit;
+  color: var(--text-primary);
+  font: inherit;
   caret-color: var(--accent-color);
 }
 
-.input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-@media screen and (max-width: 600px) {
-  .terminal {
-    height: 30vh;
-  }
-
-  .header {
-    font-size: 0.75rem;
-  }
-
-  .body {
-    font-size: 0.7rem;
-  }
+/* Ghost autocomplete suggestion in the same spot as the cursor */
+.suggestion {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  color: var(--text-faint);
+  white-space: pre;
 }

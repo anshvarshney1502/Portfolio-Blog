@@ -1,0 +1,99 @@
+.panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  padding: 4px;
+  background: var(--surface-overlay);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-4);
+  z-index: var(--z-menu);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  animation: ide-menu-in var(--dur-fast) var(--ease-out);
+  transform-origin: top left;
+  /* The panel floats above a dark app; a hairline highlight on the top edge is
+     what makes it read as lifted rather than cut out. */
+  backdrop-filter: blur(12px);
+}
+
+.itemWrap {
+  position: relative;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--dur-instant) var(--ease-quart);
+}
+
+.item.active:not(.disabled) {
+  background: var(--surface-selected);
+}
+
+.item.disabled {
+  color: var(--text-faint);
+  cursor: default;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  flex-shrink: 0;
+  color: var(--accent-color);
+}
+
+.label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shortcut {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.submenuArrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.submenu {
+  top: -4px;
+  left: 100%;
+  margin-left: 2px;
+}
+
+.separator {
+  height: 1px;
+  margin: 4px 8px;
+  background: var(--border-subtle);
+}
+
+.header {
+  padding: 6px 8px 4px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}

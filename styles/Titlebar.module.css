@@ -1,71 +1,154 @@
 .titlebar {
-  background: var(--titlebar-bg);
-  height: 30px;
-  padding: 0 0.5rem;
+  position: relative;
+  z-index: var(--z-chrome);
+  height: var(--titlebar-h);
+  flex-shrink: 0;
+  padding: 0 8px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 0.85rem;
-  border-bottom: 1px solid #191d20;
+  gap: 8px;
+  background: var(--titlebar-bg);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  /* The title bar is the top edge of the "window"; a faint inner highlight is
+     what gives a dark chrome bar its sense of being a physical surface. */
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-color) 5%, transparent);
+  user-select: none;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-right: 6px;
+  opacity: 0.9;
 }
 
 .items {
-  flex: 1;
-  display: flex;
-  margin-right: auto;
-  margin-left: 0.5rem;
-}
-
-.title {
-  flex: 1;
-  text-align: center;
-}
-
-.items > * {
-  padding: 0 0.5rem;
-  cursor: pointer;
-}
-
-.menuItem:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-.windowButtons {
-  flex: 1;
   display: flex;
   align-items: center;
-  margin-left: auto;
+  gap: 1px;
 }
 
-.windowButtons * {
-  margin-left: 0.5rem;
-  height: 13px;
-  width: 13px;
-  border-radius: 50%;
+.menuHost {
+  position: relative;
+}
+
+.menuButton {
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--dur-instant) var(--ease-quart),
+    color var(--dur-instant) var(--ease-quart);
+}
+
+.menuButton:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.menuButton.menuOpen {
+  background: var(--surface-active);
+  color: var(--text-primary);
+}
+
+/* ------------------------------------------------------------- title ---- */
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.titleFile {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.titleSep {
+  opacity: 0.4;
+}
+
+.titleApp {
+  opacity: 0.8;
+}
+
+/* ---------------------------------------------------- window buttons ---- */
+
+.windowButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  /* A hairline inner shadow keeps the dots from looking like flat stickers. */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  transition: transform var(--dur-fast) var(--ease-spring),
+    filter var(--dur-fast) var(--ease-quart);
+}
+
+.dot:hover {
+  transform: scale(1.18);
+  filter: brightness(1.15);
+}
+
+.dot:active {
+  transform: scale(0.92);
 }
 
 .minimize {
-  background: #f1fa8c;
-  margin-left: auto;
+  background: #f5be4f;
 }
 
 .maximize {
-  background: #50fa7b;
+  background: #5fcf65;
 }
 
 .close {
-  background: #ff5555;
+  background: #f2655a;
 }
 
 @media screen and (max-width: 900px) {
-  .items p {
+  .items {
     display: none;
   }
   .title {
-    flex: 4;
+    flex: 1;
+    justify-content: center;
+  }
+  .titleApp,
+  .titleSep {
+    display: none;
   }
 }

@@ -1,0 +1,253 @@
+/*
+ * Design tokens for the IDE shell.
+ *
+ * These sit on top of themes.css. Theme files own raw colors; this file owns
+ * everything derived from them — surfaces, borders, elevation, motion, radii.
+ * Derived values use color-mix against --text-color / --accent-color so a new
+ * theme only has to declare its palette and the whole chrome follows.
+ */
+
+:root {
+  /* ---- Surfaces (overlays that sit on whatever the theme background is) ---- */
+  --surface-hover: color-mix(in srgb, var(--text-color) 7%, transparent);
+  --surface-active: color-mix(in srgb, var(--text-color) 12%, transparent);
+  --surface-selected: color-mix(in srgb, var(--accent-color) 16%, transparent);
+  --surface-raised: color-mix(in srgb, var(--text-color) 4%, var(--main-bg));
+  --surface-overlay: color-mix(in srgb, var(--text-color) 6%, var(--main-bg));
+  --surface-sunken: color-mix(in srgb, #000 18%, var(--main-bg));
+
+  /* ---- Border hierarchy ----
+   * subtle: separates things that are already visually distinct
+   * default: the standard 1px divider
+   * strong: encloses a floating surface
+   * accent: marks the focused/active thing
+   */
+  --border-subtle: color-mix(in srgb, var(--text-color) 8%, transparent);
+  --border-default: color-mix(in srgb, var(--text-color) 14%, transparent);
+  --border-strong: color-mix(in srgb, var(--text-color) 22%, transparent);
+  --border-accent: color-mix(in srgb, var(--accent-color) 55%, transparent);
+
+  /* ---- Text hierarchy ---- */
+  --text-primary: var(--text-color);
+  --text-secondary: color-mix(in srgb, var(--text-color) 72%, transparent);
+  --text-muted: color-mix(in srgb, var(--text-color) 48%, transparent);
+  --text-faint: color-mix(in srgb, var(--text-color) 30%, transparent);
+
+  /* ---- Elevation ----
+   * Two-part shadows: a tight contact shadow plus a wide ambient one. Desktop
+   * apps read as "real" because of the contact shadow, not the blur.
+   */
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.28);
+  --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 3px 8px rgba(0, 0, 0, 0.24);
+  --elevation-3: 0 2px 4px rgba(0, 0, 0, 0.32), 0 8px 20px rgba(0, 0, 0, 0.3);
+  --elevation-4: 0 4px 8px rgba(0, 0, 0, 0.34), 0 16px 48px rgba(0, 0, 0, 0.44);
+  --glow-accent: 0 0 0 1px color-mix(in srgb, var(--accent-color) 40%, transparent),
+    0 4px 20px color-mix(in srgb, var(--accent-color) 22%, transparent);
+
+  /* ---- Radii ---- */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+
+  /* ---- Motion ----
+   * quart: default UI easing, decelerates hard so it feels immediate
+   * spring: slight overshoot, for things that "pop" (press, menu open)
+   * smooth: symmetric, for position changes that should read as gliding
+   */
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-instant: 80ms;
+  --dur-fast: 130ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+  --dur-slower: 480ms;
+
+  /* ---- Chrome metrics ---- */
+  --titlebar-h: 34px;
+  --tabsbar-h: 36px;
+  --statusbar-h: 24px;
+  --sidebar-w: 48px;
+  --explorer-w: 248px;
+
+  /* ---- Typography scale ---- */
+  --text-xs: 0.6875rem;   /* 11px — status bar, badges */
+  --text-sm: 0.75rem;     /* 12px — tab labels, breadcrumbs */
+  --text-base: 0.8438rem; /* 13.5px — UI default */
+  --text-md: 0.9375rem;   /* 15px — palette, popups */
+  --text-lg: 1rem;        /* 16px — headings */
+  --leading-tight: 1.35;
+  --leading-base: 1.6;
+  --leading-relaxed: 1.8;
+  --tracking-tight: -0.01em;
+  --tracking-wide: 0.06em;
+
+  /* ---- Z layers ---- */
+  --z-spotlight: 0;
+  --z-chrome: 20;
+  --z-menu: 60;
+  --z-contextmenu: 70;
+  --z-overlay: 80;
+  --z-toast: 90;
+}
+
+/* ---------------------------------------------------------------- base ---- */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  background: var(--main-bg);
+  color: var(--text-primary);
+  /* Inter's default figures are proportional; tabular reads better in chrome
+     where numbers update in place (clock, counters, FPS). */
+  font-feature-settings: 'cv11' 1, 'ss01' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent-color) 35%, transparent);
+  color: var(--text-primary);
+}
+
+/* ------------------------------------------------------------ scrollbar ---- */
+/* Thin and self-effacing, the way a desktop app scrollbar is. The old 15px
+   webkit bar with a hard border read as a website. */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text-color) 16%, transparent);
+  border-radius: var(--radius-full);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  transition: background var(--dur-base) var(--ease-quart);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--text-color) 32%, transparent);
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---------------------------------------------------------------- focus ---- */
+/* Keyboard users get a clear ring; mouse users never see it. */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* --------------------------------------------------------------- motion ---- */
+
+@keyframes ide-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ide-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ide-overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ide-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes ide-editor-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ide-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ide-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Anyone who has asked their OS to calm things down gets a static interface,
+   not a slightly-less-animated one. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
