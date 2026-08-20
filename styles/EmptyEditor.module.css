@@ -1,0 +1,88 @@
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 480px;
+  background: var(--main-bg);
+  color: var(--text-secondary);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  padding: 40px 20px;
+  animation: ide-fade-in 0.3s ease-out;
+}
+
+.logoWrapper {
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.18;
+  filter: drop-shadow(0 0 40px rgba(0, 140, 255, 0.25));
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.logoWrapper:hover {
+  opacity: 0.32;
+  transform: scale(1.03);
+}
+
+.shortcutsList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 380px;
+  width: 100%;
+}
+
+.shortcutRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.shortcutLabel {
+  color: var(--text-secondary);
+}
+
+.keyCombo {
+  display: flex;
+  gap: 4px;
+}
+
+.key {
+  padding: 3px 7px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.reopenBtn {
+  margin-top: 28px;
+  padding: 9px 20px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 140, 255, 0.25);
+}
+
+.reopenBtn:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+}

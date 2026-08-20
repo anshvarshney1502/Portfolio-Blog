@@ -122,6 +122,13 @@
   color: var(--text-primary) !important;
 }
 
+.fileFocused {
+  background: rgba(var(--accent-color-rgb), 0.22) !important;
+  color: #ffffff !important;
+  outline: 1px solid var(--accent-color);
+  outline-offset: -1px;
+}
+
 .fileIcon {
   flex-shrink: 0;
   opacity: 0.85;

@@ -14,6 +14,7 @@ import CommandPalette from '@/components/CommandPalette';
 import ChatPanel from '@/components/ChatPanel';
 import Toasts from '@/components/ide/Toasts';
 
+import EmptyEditor from '@/components/EmptyEditor';
 import styles from '@/styles/Layout.module.css';
 
 interface LayoutProps {
@@ -125,9 +126,13 @@ function IDEShell({ children }: LayoutProps) {
           {!zenMode && <Tabsbar />}
           <div className={styles.editorWithTerminal}>
             <main id="main-editor" className={styles.content}>
-              <div key={pathname} className={styles.pageWrapper}>
-                {children}
-              </div>
+              {ide.tabs.length === 0 ? (
+                <EmptyEditor />
+              ) : (
+                <div key={pathname} className={styles.pageWrapper}>
+                  {children}
+                </div>
+              )}
             </main>
             {/* Keep terminal mounted to preserve history; CSS hides it when closed */}
             <div className={terminalOpen ? undefined : styles.terminalHidden}>
