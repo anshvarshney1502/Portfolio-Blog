@@ -110,6 +110,16 @@
   border-radius: 0;
   transition: background var(--dur-instant) var(--ease-quart),
     color var(--dur-instant) var(--ease-quart);
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.file:focus,
+.file:focus-visible,
+.folderHeader:focus,
+.folderHeader:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .file:hover {
