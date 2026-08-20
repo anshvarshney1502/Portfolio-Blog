@@ -183,7 +183,7 @@
 [data-theme='light-modern'] {
   --main-bg: #ffffff;
   --bg-text: #f8f8f8;
-  --text-color: #3b3b3b;
+  --text-color: #000000;
   --accent-color: #0078d4;
   --accent-color-rgb: 0, 120, 212;
   --titlebar-bg: #dddddd;
@@ -214,8 +214,8 @@
   --main-bg: #000000;
   --bg-text: #0a0a0a;
   --text-color: #ffffff;
-  --accent-color: #f38518;
-  --accent-color-rgb: 243, 133, 24;
+  --accent-color: #e0cf10;
+  --accent-color-rgb: 224, 207, 16;
   --titlebar-bg: #000000;
   --sidebar-bg: #000000;
   --sidebar-hover-bg: #1a1a1a;
@@ -228,8 +228,8 @@
   --tab-border: #6fc3df;
   --bottombar-bg: #000000;
   --bottombar-border: #6fc3df;
-  --button-bg: #0078d4;
-  --button-text: #ffffff;
+  --button-bg: #e0cf10;
+  --button-text: #000000;
   --bottombar-hover-bg: #1a1a1a;
   --scrollbar-track-bg: #000000;
   --scrollbar-thumb-bg: #424242;

@@ -69,7 +69,7 @@ export const THEMES: ThemeInfo[] = [
     theme: 'dark-hc',
     publisher: 'Microsoft',
     bg: '#000000',
-    accent: '#f38518',
+    accent: '#e0cf10',
     text: '#ffffff',
   },
 ];

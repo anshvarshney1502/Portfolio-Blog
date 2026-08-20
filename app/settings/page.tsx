@@ -22,7 +22,7 @@ export default function SettingsPage() {
   const fontsLoaded = useRef<Set<string>>(new Set());
 
   useEffect(() => {
-    const theme = localStorage.getItem('user_selected_theme') || 'night-owl';
+    const theme = localStorage.getItem('user_selected_theme') || 'dark-hc';
     setActiveTheme(theme);
     const loaded = loadCustomization();
     setC(loaded);

@@ -71,11 +71,11 @@ const themeScript = `
       if (userTheme) {
         document.documentElement.setAttribute('data-theme', userTheme);
       } else {
-        document.documentElement.setAttribute('data-theme', 'night-owl');
-        localStorage.setItem('theme', 'night-owl');
+        document.documentElement.setAttribute('data-theme', 'dark-hc');
+        localStorage.setItem('theme', 'dark-hc');
       }
     } catch(e) {
-      document.documentElement.setAttribute('data-theme', 'night-owl');
+      document.documentElement.setAttribute('data-theme', 'dark-hc');
     }
     try {
       var c = JSON.parse(localStorage.getItem('ide_customization_v1') || '{}');
@@ -108,7 +108,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="night-owl"
+      data-theme="dark-hc"
       className={`${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
