@@ -3,21 +3,20 @@
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { VscChevronRight, VscPinned, VscHistory } from 'react-icons/vsc';
+import { VscChevronRight, VscPinned } from 'react-icons/vsc';
 
 import { useIDE } from '@/components/ide/IDEProvider';
 import { useContextMenu } from '@/components/ide/ContextMenu';
-import { FOLDERS, filesInFolder, getFile, normalizePath, IDE_FILES, type IDEFile } from '@/lib/ide/files';
+import { FOLDERS, filesInFolder, normalizePath, IDE_FILES, type IDEFile } from '@/lib/ide/files';
 import styles from '@/styles/Explorer.module.css';
 
 interface FileRowProps {
   file: IDEFile;
-  isActive: boolean;
-  isFocused: boolean;
+  isSelected: boolean;
   onFocusItem: () => void;
 }
 
-function FileRow({ file, isActive, isFocused, onFocusItem }: FileRowProps) {
+function FileRow({ file, isSelected, onFocusItem }: FileRowProps) {
   const ide = useIDE();
   const pinned = ide.isPinned(file.path);
   const { open: openCtx, element: ctxEl } = useContextMenu();
@@ -27,7 +26,7 @@ function FileRow({ file, isActive, isFocused, onFocusItem }: FileRowProps) {
       {ctxEl}
       <button
         type="button"
-        className={`${styles.file} ${isActive ? styles.fileActive : ''} ${isFocused ? styles.fileFocused : ''}`}
+        className={`${styles.file} ${isSelected ? styles.fileSelected : ''}`}
         onClick={() => {
           onFocusItem();
           ide.openFile(file.path);
@@ -46,7 +45,7 @@ function FileRow({ file, isActive, isFocused, onFocusItem }: FileRowProps) {
         <Image src={file.icon} alt="" width={16} height={16} className={styles.fileIcon} />
         <span className={styles.fileName}>{file.name}</span>
         {pinned && <VscPinned size={11} className={styles.pinIcon} />}
-        {isActive && <span className={styles.activeBar} />}
+        {isSelected && <span className={styles.activeBar} />}
       </button>
     </>
   );
@@ -55,16 +54,14 @@ function FileRow({ file, isActive, isFocused, onFocusItem }: FileRowProps) {
 function Folder({
   id,
   label,
-  focusedPath,
-  setFocusedPath,
+  selectedPath,
+  setSelectedPath,
 }: {
   id: 'portfolio' | 'blogs';
   label: string;
-  focusedPath: string;
-  setFocusedPath: (path: string) => void;
+  selectedPath: string;
+  setSelectedPath: (path: string) => void;
 }) {
-  const pathname = usePathname();
-  const activePath = normalizePath(pathname);
   const [open, setOpen] = useState(true);
   const files = filesInFolder(id);
 
@@ -89,9 +86,8 @@ function Folder({
             <FileRow
               key={file.path}
               file={file}
-              isActive={file.path === activePath}
-              isFocused={file.path === focusedPath}
-              onFocusItem={() => setFocusedPath(file.path)}
+              isSelected={file.path === selectedPath}
+              onFocusItem={() => setSelectedPath(file.path)}
             />
           ))}
         </div>
@@ -104,16 +100,16 @@ export default function Explorer() {
   const ide = useIDE();
   const pathname = usePathname();
   const activePath = normalizePath(pathname);
-  const [focusedPath, setFocusedPath] = useState<string>(activePath);
+  const [selectedPath, setSelectedPath] = useState<string>(activePath);
 
   /* All navigable file paths in Explorer order */
   const allNavigableFiles = useMemo(() => {
     return IDE_FILES.map(f => f.path);
   }, []);
 
-  /* Sync focusedPath when activePath changes via mouse/route */
+  /* Sync selectedPath when activePath changes via route navigation */
   useEffect(() => {
-    setFocusedPath(activePath);
+    setSelectedPath(activePath);
   }, [activePath]);
 
   /* Keyboard Navigation (ArrowUp, ArrowDown, Enter) */
@@ -125,34 +121,28 @@ export default function Explorer() {
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const currIndex = allNavigableFiles.indexOf(focusedPath);
+        const currIndex = allNavigableFiles.indexOf(selectedPath);
         const nextIndex = currIndex < allNavigableFiles.length - 1 ? currIndex + 1 : 0;
-        setFocusedPath(allNavigableFiles[nextIndex]);
+        setSelectedPath(allNavigableFiles[nextIndex]);
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const currIndex = allNavigableFiles.indexOf(focusedPath);
+        const currIndex = allNavigableFiles.indexOf(selectedPath);
         const prevIndex = currIndex > 0 ? currIndex - 1 : allNavigableFiles.length - 1;
-        setFocusedPath(allNavigableFiles[prevIndex]);
+        setSelectedPath(allNavigableFiles[prevIndex]);
       } else if (e.key === 'Enter') {
-        if (focusedPath) {
+        if (selectedPath) {
           e.preventDefault();
-          ide.openFile(focusedPath);
+          ide.openFile(selectedPath);
         }
       }
     },
-    [allNavigableFiles, focusedPath, ide]
+    [allNavigableFiles, selectedPath, ide]
   );
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
-
-  /* Recent files section */
-  const recentFiles = ide.recent
-    .slice(0, 4)
-    .map(p => getFile(p))
-    .filter((f): f is IDEFile => !!f);
 
   return (
     <aside className={styles.explorer}>
@@ -165,32 +155,10 @@ export default function Explorer() {
           key={id}
           id={id}
           label={label}
-          focusedPath={focusedPath}
-          setFocusedPath={setFocusedPath}
+          selectedPath={selectedPath}
+          setSelectedPath={setSelectedPath}
         />
       ))}
-
-      {recentFiles.length > 1 && (
-        <div className={styles.folder}>
-          <div className={styles.folderHeader} style={{ cursor: 'default' }}>
-            <VscHistory size={13} className={styles.recentIcon} />
-            <span className={styles.folderLabel}>Recent</span>
-          </div>
-          <div className={`${styles.folderContents} ${styles.folderOpen}`}>
-            <div className={styles.folderInner}>
-              {recentFiles.map(file => (
-                <FileRow
-                  key={`recent-${file.path}`}
-                  file={file}
-                  isActive={file.path === activePath}
-                  isFocused={file.path === focusedPath}
-                  onFocusItem={() => setFocusedPath(file.path)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </aside>
   );
 }

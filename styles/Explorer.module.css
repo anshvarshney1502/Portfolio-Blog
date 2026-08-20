@@ -21,7 +21,7 @@
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--text-muted);
 }
 
 /* ---------------------------------------------------------------- folder */
@@ -117,16 +117,9 @@
   color: var(--text-primary);
 }
 
-.fileActive {
-  background: var(--surface-selected) !important;
-  color: var(--text-primary) !important;
-}
-
-.fileFocused {
-  background: rgba(var(--accent-color-rgb), 0.22) !important;
+.fileSelected {
+  background: rgba(var(--accent-color-rgb), 0.24) !important;
   color: #ffffff !important;
-  outline: 1px solid var(--accent-color);
-  outline-offset: -1px;
 }
 
 .fileIcon {
@@ -155,12 +148,6 @@
   width: 2px;
   background: var(--accent-color);
   border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
-}
-
-/* Recent section */
-.recentIcon {
-  color: var(--text-faint);
-  flex-shrink: 0;
 }
 
 @media (max-width: 900px) {
