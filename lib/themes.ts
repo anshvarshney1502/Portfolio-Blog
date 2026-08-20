@@ -56,6 +56,22 @@ export const THEMES: ThemeInfo[] = [
     accent: '#88c0d0',
     text: '#eceff4',
   },
+  {
+    name: 'Light Modern',
+    theme: 'light-modern',
+    publisher: 'Microsoft',
+    bg: '#ffffff',
+    accent: '#0078d4',
+    text: '#3b3b3b',
+  },
+  {
+    name: 'Dark High Contrast',
+    theme: 'dark-hc',
+    publisher: 'Microsoft',
+    bg: '#000000',
+    accent: '#f38518',
+    text: '#ffffff',
+  },
 ];
 
 export const CUSTOM_THEME: ThemeInfo = {

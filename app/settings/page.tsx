@@ -116,7 +116,10 @@ export default function SettingsPage() {
                     <div className={styles.customGradientBar} />
                   </div>
                 ) : (
-                  <div className={styles.themeSwatch} style={{ background: t.bg }}>
+                  <div
+                    className={`${styles.themeSwatch} ${t.bg === '#ffffff' ? styles.swatchLight : ''}`}
+                    style={{ background: t.bg }}
+                  >
                     <div
                       className={styles.swatchDots}
                       style={{ '--dot-color': t.accent } as React.CSSProperties}

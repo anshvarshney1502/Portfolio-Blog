@@ -179,6 +179,66 @@
   --terminal-border: transparent;
 }
 
+/* Light Modern — VS Code Light Modern */
+[data-theme='light-modern'] {
+  --main-bg: #ffffff;
+  --bg-text: #f8f8f8;
+  --text-color: #3b3b3b;
+  --accent-color: #0078d4;
+  --accent-color-rgb: 0, 120, 212;
+  --titlebar-bg: #dddddd;
+  --sidebar-bg: #f3f3f3;
+  --sidebar-hover-bg: #e8e8e8;
+  --explorer-bg: #f3f3f3;
+  --explorer-hover-bg: #e8e8e8;
+  --explorer-border: rgba(0, 0, 0, 0.1);
+  --tabs-bg: #ececec;
+  --tab-bg: #ececec;
+  --tab-active-bg: #ffffff;
+  --tab-border: #c8c8c8;
+  --bottombar-bg: #0078d4;
+  --bottombar-border: transparent;
+  --button-bg: #0078d4;
+  --button-text: #ffffff;
+  --bottombar-hover-bg: #106ebe;
+  --scrollbar-track-bg: #ffffff;
+  --scrollbar-thumb-bg: #c1c1c1;
+  --article-bg: #f8f8f8;
+  --terminal-bg: #ffffff;
+  --terminal-header-bg: #f3f3f3;
+  --terminal-border: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark High Contrast — VS Code High Contrast Dark */
+[data-theme='dark-hc'] {
+  --main-bg: #000000;
+  --bg-text: #0a0a0a;
+  --text-color: #ffffff;
+  --accent-color: #f38518;
+  --accent-color-rgb: 243, 133, 24;
+  --titlebar-bg: #000000;
+  --sidebar-bg: #000000;
+  --sidebar-hover-bg: #1a1a1a;
+  --explorer-bg: #000000;
+  --explorer-hover-bg: #1a1a1a;
+  --explorer-border: #6fc3df;
+  --tabs-bg: #000000;
+  --tab-bg: #000000;
+  --tab-active-bg: #000000;
+  --tab-border: #6fc3df;
+  --bottombar-bg: #000000;
+  --bottombar-border: #6fc3df;
+  --button-bg: #0078d4;
+  --button-text: #ffffff;
+  --bottombar-hover-bg: #1a1a1a;
+  --scrollbar-track-bg: #000000;
+  --scrollbar-thumb-bg: #424242;
+  --article-bg: #0a0a0a;
+  --terminal-bg: #000000;
+  --terminal-header-bg: #0a0a0a;
+  --terminal-border: #6fc3df;
+}
+
 /* Custom — VS Code Default Dark+ base. Accent overridden at runtime by user. */
 [data-theme='custom'] {
   --main-bg: #1e1e1e;
