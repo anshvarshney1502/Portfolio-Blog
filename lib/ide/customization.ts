@@ -10,7 +10,7 @@ export interface Customization {
 export const DEFAULT_CUSTOMIZATION: Customization = {
   accentColor: null,
   textColor: null,
-  fontSize: 13,
+  fontSize: 16,
   fontBold: false,
   fontItalic: false,
   uiFont: null,
@@ -66,11 +66,14 @@ export function applyCustomization(c: Customization): void {
   if (c.accentColor) {
     root.style.setProperty('--accent-color', c.accentColor);
     root.style.setProperty('--accent-color-rgb', hexToRgbStr(c.accentColor));
-    root.style.setProperty('--button-text', luminance(c.accentColor) > 0.55 ? '#000000' : '#ffffff');
+    const lum = luminance(c.accentColor);
+    root.style.setProperty('--button-text', lum > 0.55 ? '#000000' : '#ffffff');
+    root.style.setProperty('--button-bg', c.accentColor);
   } else {
     root.style.removeProperty('--accent-color');
     root.style.removeProperty('--accent-color-rgb');
     root.style.removeProperty('--button-text');
+    root.style.removeProperty('--button-bg');
   }
 
   if (c.textColor) {
@@ -79,14 +82,12 @@ export function applyCustomization(c: Customization): void {
     root.style.removeProperty('--text-color');
   }
 
-  if (c.fontSize !== DEFAULT_CUSTOMIZATION.fontSize) {
-    document.body.style.fontSize = `${c.fontSize}px`;
-  } else {
-    document.body.style.fontSize = '';
-  }
+  // Slider value = root font-size in px. 16px = browser default = no visual change.
+  // All rem-based tokens scale proportionally (e.g. slider 18 → 12.5% larger text).
+  root.style.fontSize = `${c.fontSize}px`;
 
-  document.body.style.fontWeight = c.fontBold ? '600' : '';
-  document.body.style.fontStyle = c.fontItalic ? 'italic' : '';
+  root.style.fontWeight = c.fontBold ? '600' : '';
+  root.style.fontStyle = c.fontItalic ? 'italic' : '';
 
   if (c.uiFont) {
     loadGoogleFont(c.uiFont);

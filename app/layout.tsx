@@ -87,8 +87,14 @@ const themeScript = `
         root.style.setProperty('--accent-color-rgb', r+', '+g+', '+b);
         var lum=(0.299*r+0.587*g+0.114*b)/255;
         root.style.setProperty('--button-text', lum>0.55?'#000000':'#ffffff');
+        root.style.setProperty('--button-bg', c.accentColor);
       }
       if (c.textColor) root.style.setProperty('--text-color', c.textColor);
+      if (c.fontSize && c.fontSize !== 16) {
+        root.style.fontSize = c.fontSize + 'px';
+      }
+      if (c.fontBold) root.style.fontWeight = '600';
+      if (c.fontItalic) root.style.fontStyle = 'italic';
       if (c.uiFont) {
         var link=document.createElement('link');
         link.rel='stylesheet';

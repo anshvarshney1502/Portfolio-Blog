@@ -44,14 +44,27 @@ export default function SettingsPage() {
     localStorage.setItem('theme', theme);
     localStorage.setItem('user_selected_theme', theme);
     setActiveTheme(theme);
-    // Re-apply color overrides so they persist on top of the new theme
-    setC(prev => { applyCustomization(prev); return prev; });
+    setC(prev => {
+      // For Custom theme: seed accent from theme's own default so picker has a value
+      const next = (theme === 'custom' && !prev.accentColor)
+        ? { ...prev, accentColor: '#569cd6' }
+        : prev;
+      saveCustomization(next);
+      applyCustomization(next);
+      return next;
+    });
   };
 
   const resetAll = () => {
-    setC(DEFAULT_CUSTOMIZATION);
-    saveCustomization(DEFAULT_CUSTOMIZATION);
-    applyCustomization(DEFAULT_CUSTOMIZATION);
+    const defaultC = DEFAULT_CUSTOMIZATION;
+    setC(defaultC);
+    saveCustomization(defaultC);
+    // Reset theme to the site default: Dark High Contrast (#e0cf10 is native to the theme)
+    document.documentElement.setAttribute('data-theme', 'dark-hc');
+    localStorage.setItem('theme', 'dark-hc');
+    localStorage.setItem('user_selected_theme', 'dark-hc');
+    setActiveTheme('dark-hc');
+    applyCustomization(defaultC);
   };
 
   // Preload a font for preview in the font button
@@ -72,7 +85,7 @@ export default function SettingsPage() {
   const hasCustomizations =
     c.accentColor !== null ||
     c.textColor !== null ||
-    c.fontSize !== DEFAULT_CUSTOMIZATION.fontSize ||
+    c.fontSize !== 16 ||
     c.fontBold ||
     c.fontItalic ||
     c.uiFont !== null;
@@ -271,17 +284,17 @@ export default function SettingsPage() {
               <span className={styles.sizeValue}>{c.fontSize}px</span>
             </div>
             <div className={styles.sliderWrapper}>
-              <span className={styles.sliderMark}>11</span>
+              <span className={styles.sliderMark}>12</span>
               <input
                 type="range"
-                min={11}
-                max={18}
+                min={12}
+                max={22}
                 step={1}
                 value={c.fontSize}
                 onChange={e => update({ fontSize: Number(e.target.value) })}
                 className={styles.slider}
               />
-              <span className={styles.sliderMark}>18</span>
+              <span className={styles.sliderMark}>22</span>
             </div>
             <div className={styles.sizePreview} style={{ fontSize: `${c.fontSize}px` }}>
               The quick brown fox jumps over the lazy dog

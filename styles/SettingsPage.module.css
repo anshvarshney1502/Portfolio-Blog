@@ -1,15 +1,16 @@
-/* Settings Page — Premium Design */
+/* Settings Page — VS Code Premium */
 
 .page {
   width: 100%;
+  min-height: 100%;
   background: var(--main-bg);
 }
 
 .container {
-  max-width: 660px;
+  max-width: 680px;
   width: 100%;
   margin: 0 auto;
-  padding: 44px 36px;
+  padding: 40px 44px 72px;
 }
 
 /* ── Header ─────────────────────────────────────────── */
@@ -19,23 +20,23 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 40px;
-  padding-bottom: 28px;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .headerLeft {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  align-items: center;
+  gap: 12px;
 }
 
 .iconWrapper {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  background: rgba(var(--accent-color-rgb), 0.12);
-  border: 1px solid rgba(var(--accent-color-rgb), 0.2);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: rgba(var(--accent-color-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-color-rgb), 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,16 +45,17 @@
 }
 
 .title {
-  margin: 0 0 3px;
-  font-size: 22px;
-  font-weight: 700;
+  margin: 0 0 1px;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--text-color);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .subtitle {
   margin: 0;
-  font-size: 13px;
+  font-size: 11.5px;
   color: var(--text-muted);
   font-family: var(--font-ui);
 }
@@ -61,15 +63,15 @@
 .resetAll {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  background: var(--surface-raised);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  gap: 5px;
+  padding: 5px 12px;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xs);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 11.5px;
   font-family: var(--font-ui);
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   flex-shrink: 0;
   transition:
@@ -81,42 +83,56 @@
 .resetAll:hover {
   color: var(--text-primary);
   background: var(--surface-hover);
-  border-color: var(--border-default);
+  border-color: var(--accent-color);
 }
 
 /* ── Sections ───────────────────────────────────────── */
 
 .section {
-  margin-bottom: 44px;
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .section:last-child {
   margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .sectionLabel {
-  margin: 0 0 6px;
-  font-size: 10.5px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--text-faint);
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.12em;
   font-family: var(--font-mono);
+}
+
+.sectionLabel::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
 }
 
 .sectionHead {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .sectionDesc {
-  margin: 0 0 16px;
-  font-size: 12.5px;
+  margin: 0 0 14px;
+  font-size: 12px;
   color: var(--text-muted);
   font-family: var(--font-ui);
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .inlineReset {
@@ -125,11 +141,12 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 2px 6px;
+  padding: 2px 4px;
   border-radius: var(--radius-xs);
   font-family: var(--font-ui);
-  opacity: 0.75;
+  opacity: 0.7;
   transition: opacity var(--dur-fast) var(--ease-quart);
+  flex-shrink: 0;
 }
 
 .inlineReset:hover {
@@ -141,71 +158,70 @@
 .themesGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 16px;
+  gap: 6px;
 }
 
 .themeCard {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
+  gap: 10px;
+  padding: 10px 12px;
   background: var(--surface-raised);
-  border: 1.5px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   text-align: left;
   width: 100%;
   position: relative;
   transition:
     background var(--dur-fast) var(--ease-quart),
-    border-color var(--dur-fast) var(--ease-quart),
-    transform var(--dur-fast) var(--ease-spring);
+    border-color var(--dur-fast) var(--ease-quart);
 }
 
 .themeCard:hover {
-  background: var(--surface-overlay);
+  background: var(--surface-hover);
   border-color: var(--border-default);
-  transform: translateY(-1px);
 }
 
+/* VS Code active: left accent stripe + tinted bg */
 .themeCard.themeActive {
-  border-color: var(--accent-color);
-  background: rgba(var(--accent-color-rgb), 0.06);
+  background: rgba(var(--accent-color-rgb), 0.07);
+  border-color: transparent;
+  box-shadow: inset 2px 0 0 var(--accent-color);
 }
 
 /* Theme swatch — mini IDE preview */
 .themeSwatch {
-  width: 52px;
-  height: 38px;
-  border-radius: 6px;
+  width: 46px;
+  height: 34px;
+  border-radius: 4px;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 5px 5px 0;
-  gap: 3px;
+  padding: 4px 4px 0;
+  gap: 2.5px;
 }
 
 .swatchDots {
   display: flex;
-  gap: 2.5px;
+  gap: 2px;
   flex-shrink: 0;
 }
 
 .swatchDots span {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--dot-color);
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .swatchLines {
   display: flex;
   flex-direction: column;
-  gap: 2.5px;
+  gap: 2px;
   flex: 1;
 }
 
@@ -222,16 +238,16 @@
   height: 3px;
 }
 
-/* Light theme swatch — add inner border so white doesn't vanish */
-.themeSwatch.swatchLight {
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+/* Light swatch border */
+.swatchLight {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 /* Custom rainbow swatch */
 .customSwatch {
-  width: 52px;
-  height: 38px;
-  border-radius: 6px;
+  width: 46px;
+  height: 34px;
+  border-radius: 4px;
   flex-shrink: 0;
   background: #1e1e1e;
   position: relative;
@@ -259,14 +275,14 @@
 .themeInfo {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   min-width: 0;
   flex: 1;
 }
 
 .themeName {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12.5px;
+  font-weight: 500;
   color: var(--text-color);
   white-space: nowrap;
   overflow: hidden;
@@ -275,7 +291,7 @@
 }
 
 .themePublisher {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-faint);
   font-family: var(--font-ui);
   white-space: nowrap;
@@ -284,11 +300,8 @@
 }
 
 .themeCheck {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--accent-color);
   color: var(--button-text);
@@ -303,7 +316,7 @@
 .colorRow {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .colorPickerLabel {
@@ -312,55 +325,39 @@
   gap: 10px;
   cursor: pointer;
   width: fit-content;
+  position: relative;
 }
 
 .colorCircle {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 2px solid var(--border-default);
+  border: 1.5px solid var(--border-default);
   flex-shrink: 0;
   position: relative;
-  transition: border-color var(--dur-fast) var(--ease-quart), transform var(--dur-fast) var(--ease-spring);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  transition:
+    border-color var(--dur-fast) var(--ease-quart),
+    transform var(--dur-fast) var(--ease-spring);
 }
 
 .colorPickerLabel:hover .colorCircle {
   border-color: var(--accent-color);
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 .colorNativeInput {
   position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-
-/* Make clicking the label open the color picker */
-.colorPickerLabel:has(.colorNativeInput) {
-  cursor: pointer;
-}
-
-/* Workaround: position input over the circle */
-.colorPickerLabel {
-  position: relative;
-}
-
-.colorPickerLabel .colorNativeInput {
-  position: absolute;
   left: 0;
   top: 0;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   opacity: 0;
   cursor: pointer;
   pointer-events: all;
 }
 
 .colorHex {
-  font-size: 12px;
+  font-size: 11.5px;
   font-family: var(--font-mono);
   color: var(--text-muted);
   letter-spacing: 0.02em;
@@ -368,20 +365,19 @@
 
 .colorPreviewRow {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .colorChip {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: 1.5px solid transparent;
   cursor: pointer;
   transition:
     transform var(--dur-fast) var(--ease-spring),
     border-color var(--dur-fast) var(--ease-quart);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .colorChip:hover {
@@ -396,54 +392,55 @@
 /* ── Typography ─────────────────────────────────────── */
 
 .subsection {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .subsection:first-of-type {
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .subsectionLabel {
-  margin: 0 0 12px;
-  font-size: 12px;
-  font-weight: 600;
+  margin: 0 0 10px;
+  font-size: 11.5px;
+  font-weight: 500;
   color: var(--text-secondary);
   font-family: var(--font-ui);
 }
 
-/* Font Family Grid */
+/* Font Family Grid — 4 columns */
 .fontsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
 }
 
 .fontBtn {
-  padding: 7px 14px;
+  padding: 6px 10px;
   background: var(--surface-raised);
-  border: 1.5px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
   color: var(--text-secondary);
-  font-size: 12.5px;
+  font-size: 11.5px;
   cursor: pointer;
   transition:
     background var(--dur-fast) var(--ease-quart),
     border-color var(--dur-fast) var(--ease-quart),
-    color var(--dur-fast) var(--ease-quart),
-    transform var(--dur-fast) var(--ease-spring);
+    color var(--dur-fast) var(--ease-quart);
   font-family: var(--font-ui);
   white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fontBtn:hover {
   background: var(--surface-hover);
   border-color: var(--border-default);
   color: var(--text-primary);
-  transform: translateY(-1px);
 }
 
 .fontBtn.fontActive {
-  background: rgba(var(--accent-color-rgb), 0.12);
+  background: rgba(var(--accent-color-rgb), 0.1);
   border-color: var(--accent-color);
   color: var(--accent-color);
 }
@@ -457,53 +454,51 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .sliderMark {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-faint);
   font-family: var(--font-mono);
   flex-shrink: 0;
-  min-width: 20px;
+  min-width: 18px;
 }
 
 .slider {
   flex: 1;
   -webkit-appearance: none;
   appearance: none;
-  height: 4px;
+  height: 3px;
   border-radius: var(--radius-full);
   background: var(--border-default);
   outline: none;
   cursor: pointer;
-  position: relative;
 }
 
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--accent-color);
   cursor: pointer;
   border: 2px solid var(--main-bg);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 1px var(--accent-color);
   transition: transform var(--dur-fast) var(--ease-spring);
 }
 
 .slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 .slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--accent-color);
   cursor: pointer;
   border: 2px solid var(--main-bg);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 .sizeValue {
@@ -511,15 +506,16 @@
   font-family: var(--font-mono);
   color: var(--accent-color);
   font-weight: 600;
-  min-width: 32px;
+  min-width: 28px;
   text-align: right;
 }
 
 .sizePreview {
-  padding: 10px 14px;
+  padding: 9px 12px;
   background: var(--surface-raised);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--accent-color);
+  border-radius: var(--radius-xs);
   color: var(--text-secondary);
   font-family: var(--font-ui);
   line-height: 1.5;
@@ -529,45 +525,43 @@
 /* Font Style Toggles */
 .styleRow {
   display: flex;
-  gap: 10px;
+  gap: 6px;
 }
 
 .styleBtn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
+  gap: 7px;
+  padding: 8px 18px;
   background: var(--surface-raised);
-  border: 1.5px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 12.5px;
   cursor: pointer;
   font-family: var(--font-ui);
   transition:
     background var(--dur-fast) var(--ease-quart),
     border-color var(--dur-fast) var(--ease-quart),
-    color var(--dur-fast) var(--ease-quart),
-    transform var(--dur-fast) var(--ease-spring);
+    color var(--dur-fast) var(--ease-quart);
 }
 
 .styleBtn:hover {
   background: var(--surface-hover);
   border-color: var(--border-default);
   color: var(--text-primary);
-  transform: translateY(-1px);
 }
 
 .styleBtn.styleActive {
-  background: rgba(var(--accent-color-rgb), 0.12);
+  background: rgba(var(--accent-color-rgb), 0.1);
   border-color: var(--accent-color);
   color: var(--accent-color);
 }
 
 .styleLetter {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1;
-  width: 16px;
+  width: 15px;
   display: inline-block;
   text-align: center;
 }
@@ -576,20 +570,24 @@
 
 @media (max-width: 640px) {
   .container {
-    padding: 28px 20px;
+    padding: 24px 20px 48px;
   }
 
   .title {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .themesGrid {
     grid-template-columns: 1fr;
   }
 
+  .fontsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .header {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .resetAll {
