@@ -91,7 +91,7 @@ const themeScript = `
       }
       if (c.textColor) root.style.setProperty('--text-color', c.textColor);
       if (c.fontSize && c.fontSize !== 16) {
-        root.style.fontSize = c.fontSize + 'px';
+        root.style.setProperty('--font-zoom', String(c.fontSize / 16));
       }
       if (c.fontBold) root.style.fontWeight = '600';
       if (c.fontItalic) root.style.fontStyle = 'italic';

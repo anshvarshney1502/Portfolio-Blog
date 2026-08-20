@@ -8,6 +8,8 @@ import {
   loadCustomization,
   saveCustomization,
   applyCustomization,
+  applyCustomThemeColors,
+  clearCustomThemeColors,
   Customization,
   DEFAULT_CUSTOMIZATION,
   UI_FONTS,
@@ -44,11 +46,15 @@ export default function SettingsPage() {
     localStorage.setItem('theme', theme);
     localStorage.setItem('user_selected_theme', theme);
     setActiveTheme(theme);
+    if (theme !== 'custom') clearCustomThemeColors();
     setC(prev => {
       // For Custom theme: seed accent from theme's own default so picker has a value
-      const next = (theme === 'custom' && !prev.accentColor)
+      let next = theme === 'custom' && !prev.accentColor
         ? { ...prev, accentColor: '#569cd6' }
         : prev;
+      if (theme === 'custom' && next.accentColor) {
+        applyCustomThemeColors(next.accentColor);
+      }
       saveCustomization(next);
       applyCustomization(next);
       return next;
@@ -64,6 +70,7 @@ export default function SettingsPage() {
     localStorage.setItem('theme', 'dark-hc');
     localStorage.setItem('user_selected_theme', 'dark-hc');
     setActiveTheme('dark-hc');
+    clearCustomThemeColors();
     applyCustomization(defaultC);
   };
 

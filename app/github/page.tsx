@@ -68,6 +68,25 @@ export default async function GithubPage() {
           </a>
         </header>
 
+        {/* Contribution Graph — shown first so it's visible without scrolling */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Contribution Activity</h2>
+          <div className={styles.contributions}>
+            <GitHubCalendar
+              username={process.env.NEXT_PUBLIC_GITHUB_USERNAME!}
+              colorScheme="dark"
+              theme={{
+                dark: ['#161B22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+                light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+              }}
+              style={{ width: '100%', color: 'var(--text-secondary)' }}
+              blockSize={9}
+              blockMargin={2}
+              fontSize={11}
+            />
+          </div>
+        </section>
+
         {/* Stats */}
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
@@ -114,23 +133,6 @@ export default async function GithubPage() {
             </div>
           </div>
         </div>
-
-        {/* Contribution Graph */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Contribution Activity</h2>
-          <div className={styles.contributions}>
-            <GitHubCalendar
-              username={process.env.NEXT_PUBLIC_GITHUB_USERNAME!}
-              colorScheme="dark"
-              theme={{
-                dark: ['#161B22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-                light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-              }}
-              style={{ width: '100%', color: 'var(--text-secondary)' }}
-              fontSize={12}
-            />
-          </div>
-        </section>
 
         {/* Repositories */}
         <section className={styles.section}>

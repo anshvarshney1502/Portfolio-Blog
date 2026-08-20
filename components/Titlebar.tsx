@@ -217,22 +217,6 @@ export default function Titlebar() {
         },
         { label: `About ${PROFILE.name}`, onSelect: () => ide.setAboutOpen(true) },
         { label: `Version ${PROFILE.version}`, disabled: true },
-        { type: 'separator' },
-        {
-          label: 'Credits',
-          onSelect: () =>
-            ide.notify('Built with Next.js, React and CSS Modules', {
-              detail: 'Design inspired by Visual Studio Code',
-            }),
-        },
-        {
-          label: 'Report Issue',
-          onSelect: () => window.open(`${PROFILE.repo}/issues/new`, '_blank', 'noopener'),
-        },
-        {
-          label: 'View Source',
-          onSelect: () => window.open(PROFILE.repo, '_blank', 'noopener'),
-        },
       ],
     };
   }, [ide, router, downloadResume, printResume, sharePortfolio, toggleFullscreen]);
@@ -309,9 +293,9 @@ export default function Titlebar() {
         <div className={styles.windowButtons}>
           <button
             className={`${styles.dot} ${styles.minimize}`}
-            title="Zen Mode"
-            aria-label="Toggle Zen Mode"
-            onClick={ide.toggleZen}
+            title="Minimize"
+            aria-label="Minimize"
+            onClick={() => ide.notify('Window minimized', { detail: "It's a web app — use your browser to minimize" })}
           />
           <button
             className={`${styles.dot} ${styles.maximize}`}

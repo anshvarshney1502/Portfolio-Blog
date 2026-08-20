@@ -14,3 +14,10 @@ body {
 a {
   text-decoration: none;
 }
+
+/* Font size scaling: zoom the editor content area proportionally.
+   Setting --font-zoom on :root via JS scales ALL text (rem and px alike)
+   while leaving the chrome (titlebar, sidebar, statusbar) untouched. */
+#main-editor {
+  zoom: var(--font-zoom, 1);
+}
