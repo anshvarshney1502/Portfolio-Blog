@@ -29,9 +29,9 @@
 
   /* ---- Text hierarchy ---- */
   --text-primary: var(--text-color);
-  --text-secondary: color-mix(in srgb, var(--text-color) 72%, transparent);
-  --text-muted: color-mix(in srgb, var(--text-color) 48%, transparent);
-  --text-faint: color-mix(in srgb, var(--text-color) 30%, transparent);
+  --text-secondary: color-mix(in srgb, var(--text-color) 85%, transparent);
+  --text-muted: color-mix(in srgb, var(--text-color) 70%, transparent);
+  --text-faint: color-mix(in srgb, var(--text-color) 55%, transparent);
 
   /* ---- Elevation ----
    * Two-part shadows: a tight contact shadow plus a wide ambient one. Desktop

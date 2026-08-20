@@ -1,11 +1,41 @@
-/* Default Theme: Night Owl */
+/* Default Theme: Dark High Contrast (#008cff accent) */
 :root,
+[data-theme='dark-hc'] {
+  --main-bg: #000000;
+  --bg-text: #0a0a0a;
+  --text-color: #ffffff;
+  --accent-color: #008cff;
+  --accent-color-rgb: 0, 140, 255;
+  --titlebar-bg: #000000;
+  --sidebar-bg: #000000;
+  --sidebar-hover-bg: #141414;
+  --explorer-bg: #000000;
+  --explorer-hover-bg: #141414;
+  --explorer-border: rgba(0, 140, 255, 0.4);
+  --tabs-bg: #000000;
+  --tab-bg: #000000;
+  --tab-active-bg: #091a2a;
+  --tab-border: rgba(0, 140, 255, 0.3);
+  --bottombar-bg: #000000;
+  --bottombar-border: #008cff;
+  --button-bg: #008cff;
+  --button-text: #ffffff;
+  --bottombar-hover-bg: #141414;
+  --scrollbar-track-bg: #000000;
+  --scrollbar-thumb-bg: #1a1a1a;
+  --article-bg: #0a0a0a;
+  --terminal-bg: #000000;
+  --terminal-header-bg: #0a0a0a;
+  --terminal-border: rgba(0, 140, 255, 0.4);
+}
+
+/* Night Owl */
 [data-theme='night-owl'] {
   --main-bg: #011627;
   --bg-text: #0b2942;
   --text-color: #d6deeb;
-  --accent-color: #82aaff;
-  --accent-color-rgb: 130, 170, 255;
+  --accent-color: #008cff;
+  --accent-color-rgb: 0, 140, 255;
   --titlebar-bg: #011627;
   --sidebar-bg: #011627;
   --sidebar-hover-bg: #0e293f;
@@ -18,8 +48,8 @@
   --tab-border: #011627;
   --bottombar-bg: #011627;
   --bottombar-border: rgba(255, 255, 255, 0.08);
-  --button-bg: #82aaff;
-  --button-text: #011627;
+  --button-bg: #008cff;
+  --button-text: #ffffff;
   --bottombar-hover-bg: #0e293f;
   --scrollbar-track-bg: #011627;
   --scrollbar-thumb-bg: #0b2942;
@@ -184,8 +214,8 @@
   --main-bg: #ffffff;
   --bg-text: #f8f8f8;
   --text-color: #000000;
-  --accent-color: #0078d4;
-  --accent-color-rgb: 0, 120, 212;
+  --accent-color: #008cff;
+  --accent-color-rgb: 0, 140, 255;
   --titlebar-bg: #dddddd;
   --sidebar-bg: #f3f3f3;
   --sidebar-hover-bg: #e8e8e8;
@@ -196,11 +226,11 @@
   --tab-bg: #ececec;
   --tab-active-bg: #ffffff;
   --tab-border: #c8c8c8;
-  --bottombar-bg: #0078d4;
+  --bottombar-bg: #008cff;
   --bottombar-border: transparent;
-  --button-bg: #0078d4;
+  --button-bg: #008cff;
   --button-text: #ffffff;
-  --bottombar-hover-bg: #106ebe;
+  --bottombar-hover-bg: #0077d9;
   --scrollbar-track-bg: #ffffff;
   --scrollbar-thumb-bg: #c1c1c1;
   --article-bg: #f8f8f8;
@@ -209,43 +239,13 @@
   --terminal-border: rgba(0, 0, 0, 0.1);
 }
 
-/* Dark High Contrast — VS Code High Contrast Dark */
-[data-theme='dark-hc'] {
-  --main-bg: #000000;
-  --bg-text: #0a0a0a;
-  --text-color: #ffffff;
-  --accent-color: #e0cf10;
-  --accent-color-rgb: 224, 207, 16;
-  --titlebar-bg: #000000;
-  --sidebar-bg: #000000;
-  --sidebar-hover-bg: #1a1a1a;
-  --explorer-bg: #000000;
-  --explorer-hover-bg: #1a1a1a;
-  --explorer-border: #6fc3df;
-  --tabs-bg: #000000;
-  --tab-bg: #000000;
-  --tab-active-bg: #000000;
-  --tab-border: #6fc3df;
-  --bottombar-bg: #000000;
-  --bottombar-border: #6fc3df;
-  --button-bg: #e0cf10;
-  --button-text: #000000;
-  --bottombar-hover-bg: #1a1a1a;
-  --scrollbar-track-bg: #000000;
-  --scrollbar-thumb-bg: #424242;
-  --article-bg: #0a0a0a;
-  --terminal-bg: #000000;
-  --terminal-header-bg: #0a0a0a;
-  --terminal-border: #6fc3df;
-}
-
 /* Custom — VS Code Default Dark+ base. Accent overridden at runtime by user. */
 [data-theme='custom'] {
   --main-bg: #1e1e1e;
   --bg-text: #252526;
   --text-color: #cccccc;
-  --accent-color: #569cd6;
-  --accent-color-rgb: 86, 156, 214;
+  --accent-color: #008cff;
+  --accent-color-rgb: 0, 140, 255;
   --titlebar-bg: #3c3c3c;
   --sidebar-bg: #252526;
   --sidebar-hover-bg: #2a2d2e;
@@ -256,11 +256,11 @@
   --tab-bg: #2d2d2d;
   --tab-active-bg: #1e1e1e;
   --tab-border: #252526;
-  --bottombar-bg: #007acc;
+  --bottombar-bg: #008cff;
   --bottombar-border: transparent;
-  --button-bg: #0e639c;
+  --button-bg: #008cff;
   --button-text: #ffffff;
-  --bottombar-hover-bg: #1177bb;
+  --bottombar-hover-bg: #0077d9;
   --scrollbar-track-bg: #1e1e1e;
   --scrollbar-thumb-bg: #424242;
   --article-bg: #252526;

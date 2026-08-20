@@ -59,15 +59,44 @@ export default function Titlebar() {
     }
   }, [ide]);
 
-  const toggleFullscreen = useCallback(() => {
-    if (document.fullscreenElement) {
-      void document.exitFullscreen();
-    } else {
+  const enterFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
       void document.documentElement.requestFullscreen().catch(() => {
         ide.notify('Fullscreen was blocked by the browser', { tone: 'error' });
       });
     }
   }, [ide]);
+
+  const exitFullscreen = useCallback(() => {
+    if (document.fullscreenElement) {
+      void document.exitFullscreen();
+    }
+  }, []);
+
+  const closeActiveTab = useCallback(() => {
+    if (ide.activeFile) {
+      ide.closeTab(ide.activeFile.path);
+    }
+  }, [ide]);
+
+  const toggleFullscreen = useCallback(() => {
+    if (document.fullscreenElement) {
+      void document.exitFullscreen();
+    } else {
+      enterFullscreen();
+    }
+  }, [enterFullscreen]);
+
+  /* Global ESC key handler for exiting fullscreen mode */
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && document.fullscreenElement) {
+        void document.exitFullscreen();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   /* Menu definitions ---------------------------------------------------- */
 
@@ -288,30 +317,26 @@ export default function Titlebar() {
           onClick={ide.toggleChat}
           data-active={ide.chatOpen ? 'true' : undefined}
         >
-          <VscComment size={16} />
+          <VscComment size={18} />
         </button>
         <div className={styles.windowButtons}>
           <button
             className={`${styles.dot} ${styles.minimize}`}
-            title="Minimize"
-            aria-label="Minimize"
-            onClick={() => ide.notify('Window minimized', { detail: "It's a web app — use your browser to minimize" })}
+            title="Exit Fullscreen (Esc)"
+            aria-label="Exit Fullscreen"
+            onClick={exitFullscreen}
           />
           <button
             className={`${styles.dot} ${styles.maximize}`}
-            title="Toggle Fullscreen"
-            aria-label="Toggle Fullscreen"
-            onClick={toggleFullscreen}
+            title="Enter Fullscreen"
+            aria-label="Enter Fullscreen"
+            onClick={enterFullscreen}
           />
           <button
             className={`${styles.dot} ${styles.close}`}
-            title="Close"
-            aria-label="Close"
-            onClick={() =>
-              ide.notify('This window does not close', {
-                detail: "Try 'sudo hire-ansh' in the terminal instead",
-              })
-            }
+            title="Close Tab"
+            aria-label="Close Tab"
+            onClick={closeActiveTab}
           />
         </div>
       </div>

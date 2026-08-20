@@ -10,7 +10,7 @@ export interface Customization {
 export const DEFAULT_CUSTOMIZATION: Customization = {
   accentColor: null,
   textColor: null,
-  fontSize: 16,
+  fontSize: 17,
   fontBold: false,
   fontItalic: false,
   uiFont: null,

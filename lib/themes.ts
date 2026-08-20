@@ -9,11 +9,19 @@ export interface ThemeInfo {
 
 export const THEMES: ThemeInfo[] = [
   {
+    name: 'Dark High Contrast',
+    theme: 'dark-hc',
+    publisher: 'Microsoft',
+    bg: '#000000',
+    accent: '#008cff',
+    text: '#ffffff',
+  },
+  {
     name: 'Night Owl',
     theme: 'night-owl',
     publisher: 'sarah.drasner',
     bg: '#011627',
-    accent: '#82aaff',
+    accent: '#008cff',
     text: '#d6deeb',
   },
   {
@@ -61,16 +69,8 @@ export const THEMES: ThemeInfo[] = [
     theme: 'light-modern',
     publisher: 'Microsoft',
     bg: '#ffffff',
-    accent: '#0078d4',
+    accent: '#008cff',
     text: '#3b3b3b',
-  },
-  {
-    name: 'Dark High Contrast',
-    theme: 'dark-hc',
-    publisher: 'Microsoft',
-    bg: '#000000',
-    accent: '#e0cf10',
-    text: '#ffffff',
   },
 ];
 
@@ -79,7 +79,7 @@ export const CUSTOM_THEME: ThemeInfo = {
   theme: 'custom',
   publisher: 'You',
   bg: '#1e1e1e',
-  accent: '#569cd6',
+  accent: '#008cff',
   text: '#cccccc',
 };
 

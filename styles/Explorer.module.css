@@ -61,8 +61,14 @@
 
 .chevron {
   flex-shrink: 0;
-  color: var(--text-faint);
-  transition: transform var(--dur-base) var(--ease-quart);
+  color: var(--text-secondary);
+  opacity: 0.8;
+  transition: transform var(--dur-base) var(--ease-quart), color var(--dur-fast) var(--ease-quart);
+}
+
+.folderHeader:hover .chevron {
+  color: var(--text-primary);
+  opacity: 1;
 }
 
 .chevronOpen {
