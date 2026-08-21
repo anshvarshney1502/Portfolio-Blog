@@ -12,70 +12,59 @@ export const metadata: Metadata = {
   title: 'GitHub',
 };
 
-export const revalidate = 3600; // Cache for 1 hour for instant page loads
+export const revalidate = 60; // Refresh live data every 60 seconds
 
 const FALLBACK_USER: User = {
   login: 'anshvarshney1502',
-  avatar_url: 'https://github.com/anshvarshney1502.png',
-  public_repos: 12,
-  followers: 25,
+  avatar_url: 'https://avatars.githubusercontent.com/u/269888487?v=4',
+  public_repos: 4,
+  followers: 2,
 };
 
 const FALLBACK_REPOS: Repo[] = [
   {
-    id: 1,
-    name: 'cs9',
-    html_url: 'https://github.com/anshvarshney1502/cs9',
-    description: 'A crowdsourced FAQ solution portal developed by VINS interns of VLED, IIT Ropar - Summer 2026.',
-    stargazers_count: 12,
-    forks: 4,
-    language: 'TypeScript',
-    watchers: 12,
-    homepage: 'https://github.com/anshvarshney1502/cs9',
-  },
-  {
-    id: 2,
-    name: 'Memori',
-    html_url: 'https://github.com/anshvarshney1502/Memori',
-    description: 'Agent-native memory infrastructure. LLM-agnostic layer turning agent execution into structured persistent state.',
-    stargazers_count: 18,
-    forks: 5,
-    language: 'Python',
-    watchers: 18,
-    homepage: 'https://github.com/anshvarshney1502/Memori',
-  },
-  {
-    id: 3,
-    name: 'Blogsite',
-    html_url: 'https://github.com/anshvarshney1502/Blogsite',
-    description: 'Technical blogging platform built with Next.js & TypeScript, deployed on Vercel.',
-    stargazers_count: 8,
-    forks: 2,
-    language: 'TypeScript',
-    watchers: 8,
-    homepage: 'https://github.com/anshvarshney1502/Blogsite',
-  },
-  {
-    id: 4,
-    name: 'PYBE',
-    html_url: 'https://github.com/anshvarshney1502/PYBE',
-    description: 'Scenario-driven Python learning prototype designed for interactive coding practice.',
-    stargazers_count: 15,
-    forks: 3,
-    language: 'Python',
-    watchers: 15,
-    homepage: 'https://github.com/anshvarshney1502/PYBE',
-  },
-  {
-    id: 5,
+    id: 1308316279,
     name: 'Portfolio-Blog',
     html_url: 'https://github.com/anshvarshney1502/Portfolio-Blog',
     description: 'VS Code themed developer portfolio & blog built with Next.js and CSS Modules.',
-    stargazers_count: 22,
-    forks: 6,
+    stargazers_count: 0,
+    forks: 0,
     language: 'TypeScript',
-    watchers: 22,
+    watchers: 0,
     homepage: 'https://github.com/anshvarshney1502/Portfolio-Blog',
+  },
+  {
+    id: 1302854378,
+    name: 'cs9',
+    html_url: 'https://github.com/anshvarshney1502/cs9',
+    description: 'A crowdsourced FAQ solution portal developed by VINS interns of VLED, IIT Ropar - Summer 2026.',
+    stargazers_count: 0,
+    forks: 0,
+    language: 'TypeScript',
+    watchers: 0,
+    homepage: 'https://github.com/anshvarshney1502/cs9',
+  },
+  {
+    id: 1302853765,
+    name: 'Memori',
+    html_url: 'https://github.com/anshvarshney1502/Memori',
+    description: 'Agent-native memory infrastructure. LLM-agnostic layer turning agent execution into structured persistent state.',
+    stargazers_count: 0,
+    forks: 0,
+    language: 'Python',
+    watchers: 0,
+    homepage: 'https://memorilabs.ai',
+  },
+  {
+    id: 1302852840,
+    name: 'PYBE',
+    html_url: 'https://github.com/anshvarshney1502/PYBE',
+    description: 'PyBe is a scenario-driven Python learning prototype built for interactive coding practice.',
+    stargazers_count: 0,
+    forks: 0,
+    language: 'JavaScript',
+    watchers: 0,
+    homepage: 'https://github.com/anshvarshney1502/PYBE',
   },
 ];
 
@@ -86,18 +75,18 @@ async function getGithubData() {
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3-second strict timeout
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
 
     const [userRes, repoRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`, {
         headers,
         signal: controller.signal,
-        next: { revalidate: 3600 },
+        next: { revalidate: 60 },
       }),
-      fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`, {
+      fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=10`, {
         headers,
         signal: controller.signal,
-        next: { revalidate: 3600 },
+        next: { revalidate: 60 },
       }),
     ]);
 
@@ -109,7 +98,7 @@ async function getGithubData() {
       return { user, repos };
     }
   } catch (err) {
-    console.warn('GitHub API fetch timed out or failed, using instant fallback data:', err);
+    console.warn('GitHub API live fetch fallback used:', err);
   }
 
   return { user: FALLBACK_USER, repos: FALLBACK_REPOS };
@@ -126,7 +115,7 @@ export default async function GithubPage() {
         <header className={styles.header}>
           <div className={styles.profile}>
             <Image
-              src={user.avatar_url || 'https://github.com/anshvarshney1502.png'}
+              src={user.avatar_url || 'https://avatars.githubusercontent.com/u/269888487?v=4'}
               className={styles.avatar}
               alt={username}
               width={80}
@@ -177,7 +166,7 @@ export default async function GithubPage() {
               <VscRepo size={20} />
             </div>
             <div className={styles.statInfo}>
-              <span className={styles.statValue}>{user.public_repos ?? 12}</span>
+              <span className={styles.statValue}>{user.public_repos ?? 4}</span>
               <span className={styles.statLabel}>Repositories</span>
             </div>
           </div>
@@ -187,7 +176,7 @@ export default async function GithubPage() {
               <VscPerson size={20} />
             </div>
             <div className={styles.statInfo}>
-              <span className={styles.statValue}>{user.followers ?? 25}</span>
+              <span className={styles.statValue}>{user.followers ?? 2}</span>
               <span className={styles.statLabel}>Followers</span>
             </div>
           </div>
