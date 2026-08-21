@@ -60,10 +60,27 @@ function IDEShell({ children }: LayoutProps) {
 
       /* Ctrl/Cmd shortcuts */
       if (e.ctrlKey || e.metaKey) {
-        if (e.key === '`') { e.preventDefault(); ide.toggleTerminal(); return; }
-        if (e.shiftKey && e.key.toLowerCase() === 'p') { e.preventDefault(); ide.openPalette('commands'); return; }
-        if (!e.shiftKey && e.key.toLowerCase() === 'p') { e.preventDefault(); ide.openPalette('files'); return; }
-        if (e.key.toLowerCase() === 'b') { e.preventDefault(); ide.toggleExplorer(); return; }
+        const key = e.key.toLowerCase();
+        if (key === '`' || e.code === 'Backquote') {
+          e.preventDefault();
+          ide.toggleTerminal();
+          return;
+        }
+        if (e.shiftKey && key === 'p') {
+          e.preventDefault();
+          ide.openPalette('commands');
+          return;
+        }
+        if (!e.shiftKey && key === 'p') {
+          e.preventDefault();
+          ide.openPalette('files');
+          return;
+        }
+        if (key === 'b' || e.code === 'KeyB') {
+          e.preventDefault();
+          ide.toggleExplorer();
+          return;
+        }
       }
 
       if (e.key === 'Escape' && ide.terminalOpen) { ide.setTerminalOpen(false); return; }

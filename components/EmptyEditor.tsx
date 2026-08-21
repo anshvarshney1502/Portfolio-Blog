@@ -20,38 +20,54 @@ export default function EmptyEditor() {
       </div>
 
       <div className={styles.shortcutsList}>
-        <div className={styles.shortcutRow}>
+        <button
+          type="button"
+          className={styles.shortcutRow}
+          onClick={() => ide.openPalette('commands')}
+        >
           <span className={styles.shortcutLabel}>Show All Commands</span>
           <span className={styles.keyCombo}>
-            <kbd className={styles.key}>Ctrl</kbd>
+            <kbd className={styles.key}>Ctrl/⌘</kbd>
             <kbd className={styles.key}>Shift</kbd>
             <kbd className={styles.key}>P</kbd>
           </span>
-        </div>
+        </button>
 
-        <div className={styles.shortcutRow}>
+        <button
+          type="button"
+          className={styles.shortcutRow}
+          onClick={() => ide.openPalette('files')}
+        >
           <span className={styles.shortcutLabel}>Go to File</span>
           <span className={styles.keyCombo}>
-            <kbd className={styles.key}>Ctrl</kbd>
+            <kbd className={styles.key}>Ctrl/⌘</kbd>
             <kbd className={styles.key}>P</kbd>
           </span>
-        </div>
+        </button>
 
-        <div className={styles.shortcutRow}>
+        <button
+          type="button"
+          className={styles.shortcutRow}
+          onClick={ide.toggleTerminal}
+        >
           <span className={styles.shortcutLabel}>Toggle Terminal</span>
           <span className={styles.keyCombo}>
-            <kbd className={styles.key}>Ctrl</kbd>
+            <kbd className={styles.key}>Ctrl/⌘</kbd>
             <kbd className={styles.key}>`</kbd>
           </span>
-        </div>
+        </button>
 
-        <div className={styles.shortcutRow}>
+        <button
+          type="button"
+          className={styles.shortcutRow}
+          onClick={ide.toggleExplorer}
+        >
           <span className={styles.shortcutLabel}>Toggle Explorer</span>
           <span className={styles.keyCombo}>
-            <kbd className={styles.key}>Ctrl</kbd>
+            <kbd className={styles.key}>Ctrl/⌘</kbd>
             <kbd className={styles.key}>B</kbd>
           </span>
-        </div>
+        </button>
       </div>
 
       <button
