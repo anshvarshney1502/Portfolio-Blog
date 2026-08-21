@@ -49,7 +49,7 @@ export default function SettingsPage() {
     if (theme !== 'custom') clearCustomThemeColors();
     setC(prev => {
       // For Custom theme: seed accent from theme's own default so picker has a value
-      let next = theme === 'custom' && !prev.accentColor
+      const next = theme === 'custom' && !prev.accentColor
         ? { ...prev, accentColor: '#569cd6' }
         : prev;
       if (theme === 'custom' && next.accentColor) {

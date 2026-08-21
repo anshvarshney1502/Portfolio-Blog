@@ -26,7 +26,7 @@ interface TermLine {
 
 /* ---------------------------------------------------------------- commands */
 
-function buildCommands(onThemeChange?: () => void): Record<string, (args: string[]) => TermLine[]> {
+function buildCommands(): Record<string, (args: string[]) => TermLine[]> {
   return {
     help: () => [
       { type: 'info', content: 'Portfolio Terminal — type a command and press Enter' },
