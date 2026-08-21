@@ -163,6 +163,8 @@ export default function ChatPanel() {
         <div className={styles.inputWrap}>
           <textarea
             ref={textareaRef}
+            id="chat-message-input"
+            name="chatMessage"
             className={styles.textarea}
             placeholder="Ask about Ansh..."
             value={input}

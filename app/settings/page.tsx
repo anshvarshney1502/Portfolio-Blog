@@ -188,6 +188,8 @@ export default function SettingsPage() {
                 style={{ background: c.accentColor ?? 'var(--accent-color)' }}
               />
               <input
+                id="custom-accent-color-picker"
+                name="accentColor"
                 type="color"
                 value={c.accentColor ?? '#82aaff'}
                 onChange={e => update({ accentColor: e.target.value })}
@@ -227,6 +229,8 @@ export default function SettingsPage() {
                 style={{ background: c.textColor ?? 'var(--text-color)' }}
               />
               <input
+                id="custom-text-color-picker"
+                name="textColor"
                 type="color"
                 value={c.textColor ?? '#d6deeb'}
                 onChange={e => update({ textColor: e.target.value })}
@@ -293,6 +297,8 @@ export default function SettingsPage() {
             <div className={styles.sliderWrapper}>
               <span className={styles.sliderMark}>12</span>
               <input
+                id="editor-font-size-slider"
+                name="fontSize"
                 type="range"
                 min={12}
                 max={22}

@@ -174,6 +174,8 @@ export default function CommandPalette() {
           <VscGoToFile size={17} className={styles.searchIcon} />
           <input
             ref={inputRef}
+            id="command-palette-input"
+            name="commandPaletteQuery"
             className={styles.input}
             value={query}
             onChange={e => setQuery(e.target.value)}

@@ -443,6 +443,8 @@ export default function Terminal() {
           <div className={styles.inputWrap}>
             <input
               ref={inputRef}
+              id="terminal-command-input"
+              name="terminalCommand"
               type="text"
               value={input}
               onChange={e => setInput(e.target.value)}

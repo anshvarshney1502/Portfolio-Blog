@@ -174,6 +174,8 @@ export default function EditFile() {
 
         <textarea
           ref={textareaRef}
+          id="profile-notes-editor"
+          name="profileNotes"
           className={styles.textarea}
           value={content}
           onChange={handleChange}
