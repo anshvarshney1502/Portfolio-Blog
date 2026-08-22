@@ -22,13 +22,13 @@ export default function HomePage() {
             <h1 className={styles.name}>Ansh Varshney</h1>
             
             <p className={styles.role}>
-              Data Science @ IIT Madras | Summer Intern @ IIT Ropar | Open Source Contributor @ ECSoC
+              Data Science @ IIT Madras | Summer Intern @ IIT Ropar | OSCI 2026 Contributor | Founder @ Technical Innovations Forum
             </p>
-            
+
             <div className={styles.divider} />
-            
+
             <p className={styles.description}>
-              Building intelligent software with data, AI, and open source. Currently pursuing a BS in Data Science at IIT Madras while gaining hands-on experience through a Summer Internship at IIT Ropar and contributing to open-source projects through Elite Coders Summer of Code (ECSoC). Interested in Artificial Intelligence, Machine Learning, and software engineering that creates meaningful real-world impact.
+              Building intelligent software with data, AI, and open source. Currently pursuing a BS in Data Science and Applications at IIT Madras, with hands-on experience through a Summer Internship at IIT Ropar (VLED Lab), open-source contributions via OSCI 2026, and community leadership at the Technical Innovations Forum. Deeply interested in Artificial Intelligence, Machine Learning, Large Language Models, and software engineering that creates meaningful real-world impact.
             </p>
           </div>
 
