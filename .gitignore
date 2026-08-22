@@ -33,3 +33,4 @@ tsconfig.tsbuildinfo
 # agents & IDE
 .agents
 .cursor
+.claude
