@@ -62,11 +62,11 @@ const R = {
 
   projects:
     `**Featured Projects:**\n\n` +
-    `🔹 **CS9 FAQ Portal** — Crowdsourced FAQ portal built at VLED Lab, IIT Ropar (Summer 2026)\n` +
+    `🔹 **PYBE** — Scenario-driven Python learning prototype built at VLED Lab, IIT Ropar\n` +
+    `🔹 **Portfolio-Blog** — This VS Code themed portfolio, built with Next.js 16, React 19 & TypeScript\n` +
+    `🔹 **Crowd-Source FAQ** — Full-stack FAQ portal with semantic vector search, AI moderation & expert promotion; built for 1M users\n` +
     `🔹 **Memori** — Agent-native memory infrastructure, LLM-agnostic; turns agent execution into structured persistent state\n` +
-    `🔹 **Blogsite** — Technical blogging platform (Next.js + TypeScript, deployed on Vercel)\n` +
-    `🔹 **PYBE** — Scenario-driven Python learning prototype for interactive coding practice\n` +
-    `🔹 **VSCode Portfolio** — This very portfolio you're looking at, built with Next.js & CSS Modules\n\n` +
+    `🔹 **CS9 FAQ Portal** — Crowdsourced FAQ portal built at VLED Lab, IIT Ropar (Summer 2026)\n\n` +
     `Browse all at ${PROFILE.github}`,
 
   experience:
@@ -90,12 +90,12 @@ const R = {
   opensource:
     `**Open Source Contributions:**\n\n` +
     OPEN_SOURCE.map(o => `• ${o}`).join('\n') + '\n\n' +
-    `Ansh contributes through **Elite Coders Summer of Code (ECSoC)** and independent projects. He's built tools, fixed bugs, and collaborated with developers across multiple repos.`,
+    `Ansh contributes through **OSCI 2026 (Open Source Connect)**, **IIT Ropar (VLED Lab)**, and independent projects. He's built tools, shipped features, fixed bugs, and collaborated with maintainers across multiple repos.`,
 
   blog:
     `**Blog & Writing:**\n\n` +
-    `Ansh writes about Python, AI, and developer tools. His blog is hosted as part of this portfolio — check the **Articles** tab in the explorer for published posts.\n\n` +
-    `He also curates AI tools, GitHub repos, and dev resources through the **Technical Innovations Forum**, a community he founded with 50+ active members.`,
+    `📝 **Blogs are coming soon!** A full technical blog engine is in the works — with MDX support, syntax-highlighted code, tags, and reading time.\n\n` +
+    `Meanwhile, Ansh curates AI tools, GitHub repos, and dev resources through the **Technical Innovations Forum**, a community he founded with 50+ active members.`,
 
   contact:
     `**Reach Ansh:**\n\n` +
@@ -125,7 +125,7 @@ const R = {
 
   location:
     `📍 **Location:** ${PROFILE.location}\n\n` +
-    `Ansh is based in Aligarh, Uttar Pradesh, India, and is open to remote work and online collaborations globally.`,
+    `Ansh is based in Chennai, Tamil Nadu, India, and is open to remote work and online collaborations globally.`,
 
   availability:
     `**Availability:**\n\n` +
@@ -205,14 +205,14 @@ const KEYWORDS: KeywordRule[] = [
   { pattern: /\binstagram\b/, response: R.linkedin },
   { pattern: /\b(skills?|stack|tech|technologies|tools|languages|programming|know|use)\b/, response: R.skills },
   { pattern: /\b(projects?|built|created|apps?|software|portfolio|side\s?projects?)\b/, response: R.projects },
-  { pattern: /\b(experience|intern|internship|worked|job|career|roles?|iit\s?ropar|vled)\b/, response: R.experience },
+  { pattern: /\b(experience|intern|internship|worked|job|career|roles?|iit\s?ropar|vled|perplexity|osci|tutor)\b/, response: R.experience },
   { pattern: /\b(education|degree|university|iit|madras|college|study|studies|studying|academic|bs|bsc)\b/, response: R.education },
-  { pattern: /\b(certif|certified|certificate|google|course)\b/, response: R.certifications },
-  { pattern: /\b(open\s?source|oss|contrib|ecsoc|elite\s?coders)\b/, response: R.opensource },
+  { pattern: /\b(certif|certified|certificate|google|cohere|celonis|course|iit\s?guwahati)\b/, response: R.certifications },
+  { pattern: /\b(open\s?source|oss|contrib|osci|open\s?source\s?connect)\b/, response: R.opensource },
   { pattern: /\b(blog|writ|articles?|posts?|publish)\b/, response: R.blog },
   { pattern: /\b(contact|reach|hire|available|connect|talk to|collab)\b/, response: R.contact },
   { pattern: /\b(resume|cv|curriculum)\b/, response: R.resume },
-  { pattern: /\b(location|where|city|country|india|aligarh)\b/, response: R.location },
+  { pattern: /\b(location|where|city|country|india|chennai|tamil\s?nadu)\b/, response: R.location },
   { pattern: /\b(availab|open to work|freelan|intern|opportunit)\b/, response: R.availability },
   { pattern: /\b(who (are|is) (you|ansh)|about (you|ansh|yourself)|introduce|tell me|overview|summary)\b/, response: R.info },
   { pattern: /\b(commands?|help|what can you|capabilities)\b/, response: R.help },
