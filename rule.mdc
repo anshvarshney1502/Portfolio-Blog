@@ -1,6 +1,25 @@
 ---
-description: 
-globs: 
+description: Cursor / AI assistant rules for the Ansh Varshney Portfolio-Blog project
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
 alwaysApply: false
 ---
- 
+
+# Portfolio-Blog Project Rules
+
+## Stack
+- Next.js 16 (App Router) with React 19 Server Components
+- TypeScript 5 (strict)
+- CSS Modules — no global CSS beyond `styles/tokens.css`
+- Deployed on Vercel
+
+## Coding Guidelines
+- Prefer server components; add `'use client'` only when interactivity is required
+- Type all data models in `types/index.ts`
+- Keep components small and colocated with their `.module.css`
+- Never commit secrets — use `.env.local` (gitignored)
+
+## Style
+- Use `react-icons/vsc` (VS Code icon set) for consistency with the theme
+- Follow the existing Night Owl / GitHub Dark / Dracula / Ayu / Nord palettes defined in `styles/tokens.css`
